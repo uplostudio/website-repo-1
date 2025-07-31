@@ -1,0 +1,64 @@
+---
+import Faq from '../../ui/Faq.astro';
+import Section from '../../ui/Section.astro';
+import { t } from '../../../utils/i18n.js';
+
+// FAQ data based on the Figma design
+const faqData = [
+  {
+    question: t({
+      pl: "DRaaS - Disaster Recovery as a Service",
+      en: "DRaaS - Disaster Recovery as a Service"
+    }),
+    answer: t({
+      pl: "Czy twój biznes jest gotowy na nagłe zdarzenia? Nie bagatelizuj ryzyka awarii systemów, incydentów cybernetycznych czy katastrof naturalnych. Pamiętaj, że te sytuacje skutkują utratą danych, przestojami operacyjnymi, a w rezultacie stratami finansowymi. Zacznij wdrażać DRaaS już teraz!",
+      en: "Is your business ready for sudden incidents? Don't underestimate the risk of system failures, cyber incidents, or natural disasters. Remember that these situations result in data loss, operational downtime, and consequently financial losses. Start implementing DRaaS now!"
+    }),
+    isExpanded: true,
+    cta: {
+      text: t({
+        pl: "Czytaj więcej",
+        en: "Learn more"
+      }),
+      href: "#"
+    }
+  },
+  {
+    question: t({
+      pl: "Business Continuity Plan (BCP)",
+      en: "Business Continuity Plan (BCP)"
+    }),
+    answer: t({
+      pl: "Kompleksowy plan zarządzania ciągłością biznesową, który pomoże Twojej organizacji utrzymać kluczowe funkcje podczas zakłóceń. BCP obejmuje procedury, zasoby i systemy zapasowe niezbędne do szybkiego przywrócenia normalnego funkcjonowania.",
+      en: "A comprehensive business continuity management plan that will help your organization maintain key functions during disruptions. BCP includes procedures, resources, and backup systems necessary for quickly restoring normal operations."
+    }),
+    isExpanded: false
+  },
+  {
+    question: t({
+      pl: "Backup as a Service (BaaS)",
+      en: "Backup as a Service (BaaS)"
+    }),
+    answer: t({
+      pl: "Profesjonalne rozwiązanie do automatycznego tworzenia kopii zapasowych Twoich danych w chmurze. BaaS zapewnia bezpieczne przechowywanie, szybkie odzyskiwanie danych i pełną kontrolę nad procesem backup.",
+      en: "A professional solution for automatically creating backups of your data in the cloud. BaaS ensures secure storage, fast data recovery, and complete control over the backup process."
+    }),
+    isExpanded: false
+  },
+  {
+    question: t({
+      pl: "Asseco Cloud Cybersecurity",
+      en: "Asseco Cloud Cybersecurity"
+    }),
+    answer: t({
+      pl: "Zaawansowane rozwiązania cyberbezpieczeństwa w chmurze, które chronią Twoją organizację przed zagrożeniami cybernetycznymi. Kompleksowa ochrona obejmująca monitoring, detekcję zagrożeń i szybką reakcję na incydenty.",
+      en: "Advanced cloud cybersecurity solutions that protect your organization from cyber threats. Comprehensive protection including monitoring, threat detection, and rapid incident response."
+    }),
+    isExpanded: false
+  }
+];
+---
+
+<Section sliceName="HomeFaq">
+    <Faq class="max-w-[720px]" faqItems={faqData} />
+</Section>

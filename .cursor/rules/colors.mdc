@@ -1,0 +1,47 @@
+---
+description: Adding new color variable
+alwaysApply: false
+---
+
+# Adding New Colors
+
+To add new colors to the system:
+
+1. **Add base color to `:root` section:**
+```css
+:root {
+  /* Your new color */
+  --u-your-color: #HEX_VALUE;
+  --u-your-color-50: rgba(R, G, B, 0.50); /* Add opacity variants if needed */
+}
+```
+
+2. **Create semantic alias (optional):**
+```css
+:root {
+  --your-semantic-name: var(--u-your-color);
+}
+```
+
+3. **Add theme-specific values for each mode:**
+```css
+/* Light Mode */
+:root, [data-theme="light"] {
+  --your-usage: var(--u-your-color);
+}
+
+/* Dark Mode */
+[data-theme="dark"] {
+  --your-usage: var(--u-your-color-modified);
+}
+
+/* Repeat for other theme modes... */
+```
+
+4. **Use in components:**
+```css
+.your-component {
+  color: var(--your-usage);
+  background-color: var(--your-usage);
+}
+```

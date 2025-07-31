@@ -1,0 +1,43 @@
+---
+import Section from '@/ui/Section.astro';
+import Heading from '@/ui/Heading.astro';
+import Text from '@/ui/Text.astro';
+import TwoColGrid from '@/ui/2ColGrid.astro';
+import { t } from '@/utils/i18n.js';
+---
+
+<Section mode="light-gray">
+  <TwoColGrid>
+    <div slot="left">
+      <Heading level={2} isMb>
+        {t({
+          pl: "Wirtualna infrastruktura",
+          en: "Virtual infrastructure"
+        })}
+      </Heading>
+      
+      <Text size="md">
+        {t({
+          pl: "Technologia chmury publicznej powstała z myślą o firmach, które nie posiadają zaplecza technicznego, takiego jak własne data center, fizyczne serwery czy osprzęt sieciowy. Bez konieczności inwestowania środków w kolokację czy sprzęt, rozwiązania public cloud sprawdzą się idealnie w miejscach, gdzie istotne jest uruchomienie projektu w krótkim czasie, bez możliwości pełnego oszacowania zapotrzebowania na zasoby.",
+          en: "Public cloud technology was created with companies in mind that do not have technical infrastructure such as their own data center, physical servers or network equipment. Without the need to invest in colocation or equipment, public cloud solutions are perfect for places where it is important to launch a project in a short time, without the possibility of fully estimating resource requirements."
+        })}
+      </Text>
+    </div>
+    
+    <div slot="right" class="flex items-center justify-center">
+      <div class="w-full h-140 rounded-lg overflow-hidden">
+        <img 
+          src="/img-3.jpg"
+          alt={t({
+            pl: "Wizualizacja funkcji: Wirtualna infrastruktura",
+            en: "Feature visualization: Virtual infrastructure"
+          })}
+          class="w-full h-full object-cover"
+          width="800"
+          height="600"
+          loading="lazy"
+        />
+      </div>
+    </div>
+  </TwoColGrid>
+</Section>

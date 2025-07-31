@@ -1,0 +1,32 @@
+---
+export interface Props {
+  text: string;
+  type?: 'submit' | 'button';
+  disabled?: boolean;
+  class?: string;
+}
+
+const {
+  text,
+  type = 'submit',
+  disabled = false,
+  class: className = '',
+  ...rest
+} = Astro.props;
+
+const buttonClasses = `w-full justify-center rounded-sm px-6 py-4.5 inline-flex items-center tracking-[0.01em] transition-colors duration-200 cursor-pointer hover:opacity-90 ${className}`;
+
+const buttonStyle = "background-color: var(--u-white); color: var(--u-black);";
+---
+
+<button 
+  type={type}
+  disabled={disabled}
+  class={buttonClasses}
+  style={buttonStyle}
+  {...rest}
+>
+  <span class="relative">
+    {text}
+  </span>
+</button>

@@ -1,0 +1,26 @@
+---
+export interface Props {
+  gap?: 'sm' | 'md' | 'lg' | 'xl';
+  class?: string;
+  isMobileReversed?: boolean;
+  isAlignedTop?: boolean;
+}
+
+const { gap = 'lg', class: className = '', isMobileReversed = false, isAlignedTop = true } = Astro.props;
+
+const gapClasses = {
+  sm: 'lg:gap-8',
+  md: 'gap-12 lg:gap-16', 
+  lg: 'gap-12 lg:gap-28',
+  xl: 'gap-12 lg:gap-32'
+};
+---
+
+<div class={`flex ${isMobileReversed ? 'flex-col-reverse' : 'flex-col'} md:flex-row ${gapClasses[gap]} ${isAlignedTop ? 'items-start' : 'items-center'} ${className}`}>
+  <div class="flex-1 w-full">
+    <slot name="left" />
+  </div>
+  <div class="flex-1 w-full">
+    <slot name="right" />
+  </div>
+</div>

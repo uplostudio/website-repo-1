@@ -1,0 +1,32 @@
+---
+import Section from '@/ui/Section.astro';
+import Heading from '@/ui/Heading.astro';
+import Text from '@/ui/Text.astro';
+import Button from '@/ui/Button.astro';
+import { t } from '@/utils/i18n.js';
+---
+
+<Section mode="light" isFullScreen sliceName="HomeHero">
+    <Heading level={1} isMb class="max-w-[800px]">
+        {t({
+            pl: "Rozwiązania dla ludzi, technologia dla biznesu",
+            en: "Solutions for people, technology for business"
+        })}
+    </Heading>
+    
+    <Text class="max-w-[600px]">
+        {t({
+            pl: "Jesteśmy największą firmą informatyczną w Polsce, i jedną z największych w Europie. Tworzymy cyfrową przyszłość.",
+            en: "We are the largest IT company in Poland and one of the largest in Europe. We create the digital future."
+        })}
+    </Text>
+    
+    <div class="flex flex-col sm:flex-row gap-4 mt-8">
+      <Button href="#">
+        {t({
+          pl: "Poznaj nasze rozwiązania",
+          en: "Discover our solutions"
+        })}
+      </Button>
+    </div>
+</Section>

@@ -1,0 +1,237 @@
+---
+import LanguageSwitcher from '@/ui/LanguageSwitcher.astro';
+import { t } from '@/utils/i18n.js';
+import Container from '@/ui/Container.astro';
+import Logo from '@/shared/Logo.astro';
+import { Search } from 'lucide-astro';
+
+export interface Props {
+	theme?: 'white' | 'dark';
+}
+
+const { theme = 'white' } = Astro.props;
+
+// Map theme prop to data-theme values
+const initialDataTheme = theme === 'dark' ? 'dark' : 'light';
+
+const navItems = [
+	{
+		href: "/blog",
+		label: {
+			pl: "Blog",
+			en: "Blog"
+		}
+	},
+	{
+		href: "/chmura-publiczna",
+		label: {
+			pl: "Chmura",
+			en: "Cloud"
+		}
+	}
+];
+---
+
+<header 
+	id="main-navigation"
+	class="sticky top-0 z-50 py-7 border-b transition-colors duration-300" 
+	style="background-color: var(--bg); border-color: var(--card-border);" 
+	data-theme={initialDataTheme}
+>
+	<Container>
+		<div class="flex justify-between items-center">
+			<div class="flex items-center space-x-8">
+				<a href="/" class="flex items-center" aria-label="Go to homepage">
+					<Logo width={120} height={12} />
+				</a>
+				<div class="hidden md:block w-px h-6" style="background-color: var(--separator);"></div>
+				<nav class="hidden md:flex space-x-6">
+					{navItems.map((item) => (
+						<a 
+							class="text-[15px] transition-colors hover:text-[color:var(--primary)]"
+							style="color: var(--text);"
+							href={item.href}
+						>
+							{t(item.label)}
+						</a>
+					))}
+				</nav>
+			</div>
+			<div class="flex items-center space-x-4">
+				<button 
+					id="search-button"
+					type="button"
+					class="p-2 transition-opacity hover:opacity-70"
+					style="color: var(--text);"
+					aria-label="Search"
+				>
+					<Search size={16} />
+				</button>
+				<LanguageSwitcher />
+			</div>
+		</div>
+	</Container>
+</header>
+
+<script>
+  class NavigationThemeTracker {
+    sections: Element[];
+    currentSectionTheme: string;
+    navHeader: HTMLElement | null;
+    initialTheme: string;
+    
+    constructor() {
+      this.sections = [];
+      this.currentSectionTheme = 'light';
+      this.navHeader = null;
+      this.initialTheme = 'light';
+      
+      this.init();
+    }
+    
+    init() {
+      console.log('NavigationThemeTracker: Initializing...');
+      
+      // Get navigation header
+      this.navHeader = document.getElementById('main-navigation');
+      if (!this.navHeader) {
+        console.error('NavigationThemeTracker: Navigation header not found');
+        return;
+      }
+      
+      // Get initial theme from navigation
+      this.initialTheme = this.navHeader.getAttribute('data-theme') || 'light';
+      console.log('NavigationThemeTracker: Initial navigation theme:', this.initialTheme);
+      
+      // Get all sections with data-theme
+      this.sections = Array.from(document.querySelectorAll('section[data-theme]'));
+      console.log('NavigationThemeTracker: Found themed sections:', this.sections.length);
+      
+      // Log all sections for debugging
+      const allSections = document.querySelectorAll('section');
+      console.log('NavigationThemeTracker: All sections found:', allSections.length);
+      allSections.forEach((section, index) => {
+        const theme = section.getAttribute('data-theme');
+        const slice = section.getAttribute('data-slice');
+        console.log(`Section ${index}: theme="${theme}", slice="${slice}"`);
+      });
+      
+      // Test intersection observer
+      if (this.sections.length > 0) {
+        console.log('NavigationThemeTracker: Testing first section:', this.sections[0]);
+        console.log('NavigationThemeTracker: First section theme:', this.sections[0].getAttribute('data-theme'));
+      }
+      
+      // Set up intersection observers
+      this.setupObservers();
+      
+      // Set up search button
+      this.setupSearchButton();
+    }
+    
+    setupObservers() {
+      console.log('NavigationThemeTracker: Setting up observers for', this.sections.length, 'sections');
+      
+      // Set up scroll listener to check which section the navigation is over
+      window.addEventListener('scroll', () => {
+        this.checkNavigationPosition();
+      });
+      
+      // Initial check
+      this.checkNavigationPosition();
+    }
+    
+    checkNavigationPosition() {
+      if (!this.navHeader) return;
+      
+      const navRect = this.navHeader.getBoundingClientRect();
+      const navCenterY = navRect.top + navRect.height / 2;
+      
+      console.log('NavigationThemeTracker: Navigation center Y:', navCenterY);
+      
+      // Find which section the navigation center is over
+      let currentSectionTheme = 'light';
+      
+      // Check if we're above the first section
+      if (this.sections.length > 0) {
+        const firstSection = this.sections[0];
+        const firstSectionRect = firstSection.getBoundingClientRect();
+        
+        if (navCenterY < firstSectionRect.top) {
+          // We're above the first section, use first section's theme
+          const firstSectionTheme = firstSection.getAttribute('data-theme');
+          if (firstSectionTheme) {
+            currentSectionTheme = firstSectionTheme;
+            console.log('NavigationThemeTracker: Above first section, using first section theme:', firstSectionTheme);
+          }
+        } else {
+          // Check which section the navigation center is over
+          this.sections.forEach((section, index) => {
+            const sectionRect = section.getBoundingClientRect();
+            const sectionTop = sectionRect.top;
+            const sectionBottom = sectionRect.bottom;
+            
+            // Check if navigation center is within this section
+            if (navCenterY >= sectionTop && navCenterY <= sectionBottom) {
+              const theme = section.getAttribute('data-theme');
+              if (theme) {
+                currentSectionTheme = theme;
+                console.log(`NavigationThemeTracker: Navigation center is over section ${index} (${theme})`);
+              }
+            }
+          });
+        }
+      }
+      
+      // Update theme if it changed
+      if (currentSectionTheme !== this.currentSectionTheme) {
+        this.setNavigationTheme(currentSectionTheme);
+      }
+    }
+    
+
+    
+    setupSearchButton() {
+      const searchButton = document.getElementById('search-button');
+      if (searchButton) {
+        searchButton.addEventListener('click', () => {
+          // Dispatch custom event for search
+          const event = new CustomEvent('open-search');
+          document.dispatchEvent(event);
+        });
+      }
+    }
+    
+    setNavigationTheme(theme: string) {
+      this.currentSectionTheme = theme;
+      this.updateNavigationTheme();
+    }
+    
+    updateNavigationTheme() {
+      if (!this.navHeader) return;
+      
+      // Use the section theme directly for navigation
+      const navTheme = this.currentSectionTheme || 'light';
+      
+      this.navHeader.setAttribute('data-theme', navTheme);
+      console.log('NavigationThemeTracker: Navigation theme set to:', navTheme, '(section theme:', this.currentSectionTheme, ')');
+    }
+    
+    destroy() {
+      // Remove scroll listener
+      window.removeEventListener('scroll', this.checkNavigationPosition.bind(this));
+    }
+  }
+  
+  // Initialize when DOM is ready
+  document.addEventListener('DOMContentLoaded', () => {
+    (window as any).navigationThemeTracker = new NavigationThemeTracker();
+  });
+  
+  // Clean up on page unload
+  window.addEventListener('beforeunload', () => {
+    if ((window as any).navigationThemeTracker) {
+      (window as any).navigationThemeTracker.destroy();
+    }
+  });
+</script>

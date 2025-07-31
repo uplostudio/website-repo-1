@@ -1,0 +1,36 @@
+---
+export interface Props {
+  level?: 1 | 2 | 3 | 4 | 5 | 6;
+  size?: 1 | 2 | 3 | 4 | 5 | 6;
+  class?: string;
+  isMb?: boolean;
+}
+
+const { level = 1, size = level, class: className = "", isMb = false } = Astro.props;
+
+const Tag = `h${level}` as keyof HTMLElementTagNameMap;
+
+const sizeClasses = {
+  1: "text-[38px] md:text-[48px] lg:text-[67px]",
+  2: "text-[36px] md:text-[40px] lg:text-[56px]", 
+  3: "text-[28px] md:text-[32px] lg:text-[40px]",
+  4: "text-[25px] md:text-[28px] lg:text-[34px]",
+  5: "text-[23px] md:text-[23px] lg:text-[23px]",
+  6: "text-[18px] md:text-[18px] lg:text-[18px]"
+};
+
+const mbClasses = {
+  1: "mb-[16px] md:mb-[18px] lg:mb-[20px]",
+  2: "mb-[12px] md:mb-[14px] lg:mb-[16px]",
+  3: "mb-[8px] md:mb-[10px] lg:mb-[12px]",
+  4: "mb-[6px] md:mb-[8px] lg:mb-[10px]",
+  5: "mb-[8px] md:mb-[8px] lg:mb-[8px]",
+  6: "mb-[8px] md:mb-[8px] lg:mb-[8px]"
+};
+
+const headingClasses = `${sizeClasses[size]} ${isMb ? mbClasses[size] : ''} font-[500] leading-[1.15] tracking-[-0.015em] ${className}`;
+---
+
+<Tag class={headingClasses}>
+  <slot />
+</Tag>

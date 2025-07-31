@@ -1,0 +1,106 @@
+---
+// Simple JavaScript scroll tracker - shows current section only
+export interface Props {
+  class?: string;
+}
+
+const { class: className = '' } = Astro.props;
+---
+
+<div 
+  id="scroll-tracker"
+  class:list={['scroll-tracker-js', className]}
+  class="fixed bottom-4 left-4 z-50 bg-white dark:bg-gray-800 rounded-lg shadow-lg p-4 border"
+  style="background-color: var(--bg); border-color: var(--card-border); color: var(--text);"
+>
+  <div class="text-sm">
+    Current Section:
+    <span id="current-slice" class="text font-[500]">None</span>
+</div>
+</div>
+
+<script>
+  class ScrollTracker {
+    currentSlice: string;
+    sections: Element[];
+    observers: IntersectionObserver[];
+    
+    constructor() {
+      this.currentSlice = 'None';
+      this.sections = [];
+      this.observers = [];
+      this.init();
+    }
+    
+    init() {
+      console.log('ScrollTracker: Initializing...');
+      
+      // Get all sections with data-slice
+      this.sections = Array.from(document.querySelectorAll('section[data-slice]'));
+      console.log('ScrollTracker: Found sections:', this.sections.length);
+      
+      // Set up intersection observers
+      this.setupObservers();
+    }
+    
+    setupObservers() {
+      this.sections.forEach((section, index) => {
+        const observer = new IntersectionObserver(
+          (entries) => {
+            entries.forEach((entry) => {
+              if (entry.isIntersecting) {
+                const sliceName = entry.target.getAttribute('data-slice') || `Slice ${index + 1}`;
+                this.setCurrentSlice(sliceName);
+                console.log('ScrollTracker: Slice changed to:', sliceName);
+              }
+            });
+          },
+          {
+            threshold: 0.3,
+            rootMargin: '-10% 0px -10% 0px'
+          }
+        );
+        
+        observer.observe(section);
+        this.observers.push(observer);
+      });
+    }
+    
+    setCurrentSlice(sliceName: string) {
+      this.currentSlice = sliceName;
+      
+      // Update DOM element
+      const currentSliceEl = document.getElementById('current-slice');
+      if (currentSliceEl) {
+        currentSliceEl.textContent = sliceName;
+      }
+    }
+    
+    destroy() {
+      this.observers.forEach(observer => observer.disconnect());
+    }
+  }
+  
+  // Initialize when DOM is ready
+  document.addEventListener('DOMContentLoaded', () => {
+    (window as any).scrollTracker = new ScrollTracker();
+  });
+  
+  // Clean up on page unload
+  window.addEventListener('beforeunload', () => {
+    if ((window as any).scrollTracker) {
+      (window as any).scrollTracker.destroy();
+    }
+  });
+</script>
+
+<style>
+  .scroll-tracker-js {
+    transition: all 0.3s ease;
+  }
+  
+  .scroll-tracker-js:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+  }
+</style>

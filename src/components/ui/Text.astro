@@ -1,0 +1,26 @@
+---
+export interface Props {
+  size?: 'sm' | 'md' | 'lg';
+  type?: 'default' | 'light';
+  class?: string;
+}
+
+const { size = 'md', type = 'default', class: className = "" } = Astro.props;
+
+const sizeClasses = {
+  sm: "text-[14px] md:text-[16px] lg:text-[18px]",
+  md: "text-[16px] md:text-[18px] lg:text-[20px]",
+  lg: "text-[18px] md:text-[20px] lg:text-[24px]"
+};
+
+const typeClasses = {
+  default: "",
+  light: "opacity-80"
+};
+
+const textClasses = `${sizeClasses[size]} ${typeClasses[type]} font-[400] leading-[150%] tracking-[0.01em] ${className}`;
+---
+
+<p class={textClasses}>
+  <slot />
+</p>

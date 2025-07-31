@@ -1,0 +1,73 @@
+---
+import Section from '@/ui/Section.astro';
+import SectionHeader from '@/ui/SectionHeader.astro';
+import Heading from '@/ui/Heading.astro';
+import Text from '@/ui/Text.astro';
+import TwoColGrid from '@/ui/2ColGrid.astro';
+import Subtitle from '@/ui/Subtitle.astro';
+import { t } from '@/utils/i18n.js';
+
+
+const sectionTitle = {
+  pl: "Zarząd Asseco Cloud",
+  en: "Asseco Cloud Management"
+};
+
+const sectionSubtitle = {
+  pl: "Poznaj Zarząd Asseco Cloud",
+  en: "Meet the Asseco Cloud Management"
+};
+
+const managerName = {
+  pl: "Lech Szczuka",
+  en: "Lech Szczuka"
+};
+
+const managerTitle = {
+  pl: "Prezes Zarządu Asseco Cloud",
+  en: "CEO of Asseco Cloud"
+};
+
+const managerBio1 = {
+  pl: "Absolwent Wydziału Elektrotechniki Politechniki Gdańskiej. Jest związany z branżą IT od ponad 16 lat w obszarze kluczowych systemów informatycznych, rozwiązań chmurowych i ubezpieczeń społecznych, którego głównym zadaniem jest dostarczanie informatycznych systemów świadczeń emerytalno-rentowych dla tak ważnych klientów, jak ZUS i KRUS. Swoją drogę zawodową rozpoczął od stanowiska programisty, następnie został projektantem systemów IT. Ukończył studia podyplomowe Zarządzanie projektami w Warszawskiej Wyższej Szkole Informatyki, zdobył także Certyfikat ITIL.",
+  en: "Graduate of the Faculty of Electrical Engineering at Gdansk University of Technology. He has been associated with the IT industry for over 16 years in the area of key information systems, cloud solutions and social insurance, whose main task is to provide IT systems for pension and disability benefits for such important clients as ZUS and KRUS. He started his career as a programmer, then became an IT systems designer. He completed postgraduate studies in Project Management at the Warsaw School of Computer Science and also obtained an ITIL Certificate."
+};
+
+const managerBio2 = {
+  pl: "Od maja 2021 r. jest Prezesem Zarządu Asseco Cloud, w której odpowiada za wizję rozwoju, strategię i zarządzanie spółką oraz za Pion Usług Komercyjnych, Pion Rozwiązań Wewnętrznych i Dział Bezpieczeństwa oraz Pion Systemów Kluczowych. W Asseco Data System odpowiada za Pion Utrzymania i Rozwoju Oprogramowania, zaś w Asseco Poland za Pion Ubezpieczeń Rolniczych",
+  en: "Since May 2021, he has been the CEO of Asseco Cloud, where he is responsible for the development vision, strategy and management of the company as well as for the Commercial Services Division, Internal Solutions Division and Security Department and the Key Systems Division. In Asseco Data System, he is responsible for the Software Maintenance and Development Division, and in Asseco Poland for the Agricultural Insurance Division"
+};
+---
+
+<Section sliceName="HomeManagement">
+      <SectionHeader>
+        <Heading level={2} isMb>
+          {t(sectionTitle)}
+        </Heading>
+        <Text>
+          {t(sectionSubtitle)}
+        </Text>
+      </SectionHeader>
+      
+
+    <TwoColGrid gap="xl" isAlignedTop>
+      <div slot="left" class="bg-[#f9f9f9] h-[564px] overflow-hidden relative w-full">
+        <img src="/a67e2c52e897d0b3c87f1f98afaf7813977f914f.png" loading="lazy"
+      </div>
+      
+      <div slot="right" class="flex flex-col items-start justify-start">
+        <Heading level={3} isMb>
+          {t(managerName)}
+        </Heading>
+        <Subtitle isMb>
+          {t(managerTitle)}
+        </Subtitle>
+        <Text class="mb-4">
+          {t(managerBio1)}
+        </Text>
+        <Text>
+          {t(managerBio2)}
+        </Text>
+      </div>
+    </TwoColGrid>
+</Section>

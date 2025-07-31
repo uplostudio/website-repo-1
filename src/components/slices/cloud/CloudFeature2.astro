@@ -1,0 +1,44 @@
+---
+import Section from '@/ui/Section.astro';
+import Heading from '@/ui/Heading.astro';
+import Text from '@/ui/Text.astro';
+import TwoColGrid from '@/ui/2ColGrid.astro';
+import { t } from '@/utils/i18n.js';
+---
+
+<Section mode="light">
+  <TwoColGrid isMobileReversed={true}>
+    <div slot="left" class="flex items-center justify-center">
+      <div class="w-full h-140 rounded-lg overflow-hidden">
+        <img 
+          src="/img-4.jpg"
+          alt={t({
+            pl: "Wizualizacja funkcji: Skalowalna na życzenie",
+            en: "Feature visualization: Scalable on demand"
+          })}
+          class="w-full h-full object-cover"
+          width="800"
+          height="600"
+          loading="lazy"
+        />
+      </div>
+    </div>
+    
+    <div slot="right">
+      <Heading level={2} isMb>
+        {t({
+          pl: "Skalowalna na życzenie",
+          en: "Scalable on demand"
+        })}
+      </Heading>
+      
+      <Text size="md">
+        {t({
+          pl: "Chmura to swoboda w przydzielaniu zasobów. Poszczególne parametry i zasoby mogą automatycznie dostosowywać się do bieżącego zapotrzebowania. W ten sposób aplikacje narażone na zwiększone zapotrzebowanie na zasoby (np. platformy e-commerce) mogą działać płynnie nawet w przypadku skoków odwiedzalności (np. okresów wyprzedażowe). Analogicznie, niskie obciążenie platformy umożliwia zmniejszenie wykorzystania zasobów, zapewniając oszczędności finansowe.",
+          en: "Cloud means freedom in resource allocation. Individual parameters and resources can automatically adapt to current demand. This way, applications exposed to increased resource demand (e.g. e-commerce platforms) can run smoothly even during traffic spikes (e.g. sale periods). Similarly, low platform load allows for reduced resource usage, providing financial savings."
+        })}
+      </Text>
+      
+    </div>
+  </TwoColGrid>
+</Section>

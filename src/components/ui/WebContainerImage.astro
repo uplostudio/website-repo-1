@@ -1,0 +1,26 @@
+---
+export interface Props {
+  src: string;
+  alt: string;
+  width?: number;
+  height?: number;
+  class?: string;
+  fallbackSrc?: string;
+}
+
+const { src, alt, width, height, class: className, fallbackSrc } = Astro.props;
+
+// For WebContainer compatibility, we'll use public images
+// The src should be just the filename (e.g., "img-1.jpg")
+const publicSrc = src.startsWith('/') ? src : `/${src}`;
+---
+
+<img 
+  src={publicSrc}
+  alt={alt}
+  width={width}
+  height={height}
+  class={className}
+  onerror={fallbackSrc ? `this.onerror=null; this.src='${fallbackSrc}';` : undefined}
+  loading="lazy"
+/>

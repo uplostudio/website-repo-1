@@ -1,0 +1,133 @@
+---
+import Heading from './Heading.astro';
+import Text from './Text.astro';
+import Button from './Button.astro';
+import { t } from '@/utils/i18n.js';
+
+export interface Props {
+  title: {
+    pl: string;
+    en: string;
+  };
+  description: {
+    pl: string;
+    en: string;
+  };
+  author: string;
+  pubDate: Date;
+  heroImage?: string;
+  tags: string[];
+  featured?: boolean;
+  slug: string;
+  class?: string;
+}
+
+const {
+  title,
+  description,
+  author,
+  pubDate,
+  heroImage,
+  tags = [],
+  featured = false,
+  slug,
+  class: className = ""
+} = Astro.props;
+
+const readMoreText = {
+  pl: "Czytaj więcej",
+  en: "Read more"
+};
+
+const byAuthorText = {
+  pl: "Autor:",
+  en: "By:"
+};
+
+const formattedDate = pubDate.toLocaleDateString('pl-PL', {
+  year: 'numeric',
+  month: 'long',
+  day: 'numeric'
+});
+
+// Handle image optimization for known images
+const getOptimizedImage = (imagePath: string) => {
+  if (imagePath === '/img-6.jpg') {
+    return '/img-6.jpg';
+  }
+  return null;
+};
+
+const optimizedImage = heroImage ? getOptimizedImage(heroImage) : null;
+---
+
+<article class={`group relative overflow-hidden rounded-lg border transition-all duration-300 hover:shadow-lg ${featured ? 'border-2' : ''} ${className}`} style="background-color: var(--bg); border-color: var(--card-border);">
+  {heroImage && (
+    <div class="aspect-video w-full overflow-hidden">
+      <img
+        src={optimizedImage || heroImage}
+        alt={t(title)}
+        class="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
+        loading="lazy"
+      />
+    </div>
+  )}
+  
+  <div class="p-6">
+    {featured && (
+      <div class="mb-3">
+        <span class="inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium" style="background-color: var(--primary); color: var(--u-white);">
+          {t({
+            pl: "Wyróżniony",
+            en: "Featured"
+          })}
+        </span>
+      </div>
+    )}
+    
+    <div class="mb-4 space-y-2">
+      <Heading level={3} size={4} class="line-clamp-2 group-hover:text-[color:var(--primary)] transition-colors duration-200">
+        {t(title)}
+      </Heading>
+      
+      <Text size="sm" type="light" class="line-clamp-3">
+        {t(description)}
+      </Text>
+    </div>
+    
+    <div class="mb-4 flex flex-wrap gap-2">
+      {tags.slice(0, 3).map(tag => (
+        <span class="inline-flex items-center rounded-md px-2 py-1 text-xs font-medium" style="background-color: var(--u-gray-100); color: var(--text);">
+          {tag}
+        </span>
+      ))}
+    </div>
+    
+    <div class="flex items-center justify-between">
+      <div class="text-sm" style="color: var(--text-light);">
+        <p class="mb-1">{t(byAuthorText)} {author}</p>
+        <time datetime={pubDate.toISOString()}>{formattedDate}</time>
+      </div>
+      
+      <Button href={`/blog/${slug}`} hideArrow>
+        {t(readMoreText)}
+      </Button>
+    </div>
+  </div>
+</article>
+
+<style>
+  .line-clamp-2 {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  
+  .line-clamp-3 {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+</style>

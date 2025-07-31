@@ -1,0 +1,55 @@
+---
+import Container from './Container.astro';
+
+export interface Props {
+  as?: 'section' | 'div' | 'article' | 'aside';
+  class?: string;
+  padding?: 'none' | 'sm' | 'md' | 'lg' | 'xl';
+  maxWidth?: 'sm' | 'md' | 'lg';
+  mode?: 'light' | 'dark' | 'light-gray' | 'light-blue';
+  isFullScreen?: boolean;
+  sliceName?: string; // Name of the slice for scroll tracking
+}
+
+const {
+  as: Tag = 'section',
+  class: className = '',
+  padding = 'lg' as const,
+  maxWidth = 'lg' as const,
+  mode,
+  isFullScreen = false,
+  sliceName,
+  ...rest
+} = Astro.props as Props;
+
+const paddingClasses = {
+  none: '',
+  sm: 'py-8',
+  md: 'py-12',
+  lg: 'py-16 md:py-24',
+  xl: 'py-20 md:py-32',
+};
+---
+
+<Tag
+  class:list={[
+    isFullScreen ? '' : paddingClasses[padding],
+    'w-full',
+    isFullScreen && 'min-h-[calc(100vh-88px)] flex items-end',
+    className,
+  ]}
+  style="background-color: var(--bg); color: var(--text);"
+  data-theme={mode}
+  data-slice={sliceName}
+  {...rest}
+>
+  <Container maxWidth={maxWidth}>
+    {isFullScreen ? (
+      <div class="w-full pb-16 lg:pb-24">
+        <slot />
+      </div>
+    ) : (
+      <slot />
+    )}
+  </Container>
+</Tag>

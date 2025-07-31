@@ -1,0 +1,64 @@
+---
+import Section from '@/ui/Section.astro';
+import Heading from '@/ui/Heading.astro';
+import Text from '@/ui/Text.astro';
+import Button from '@/ui/Button.astro';
+import TwoColGrid from '@/ui/2ColGrid.astro';
+import Subtitle from '@/ui/Subtitle.astro';
+import { t } from '@/utils/i18n.js';
+
+const content = {
+  title: {
+    pl: "Chmura publiczna z własnymi zasobami?",
+    en: "Public cloud with your own resources?"
+  },
+  subtitle: {
+    pl: "Rozwiązania hybrydowe",
+    en: "Hybrid solutions"
+  },
+  description: {
+    pl: "Posiadasz własną infrastrukturę, której rozbudowa jest zbyt kosztowna? Chcesz przenieść własne projekty z rozwiązań on-premise do chmury? Poznaj możliwości chmury hybrydowej, którą wdrożą dla Ciebie eksperci Asseco Cloud.",
+    en: "Do you have your own infrastructure whose expansion is too expensive? Do you want to move your own projects from on-premise solutions to the cloud? Discover the possibilities of hybrid cloud, which will be implemented for you by Asseco Cloud experts."
+  },
+  cta: {
+    pl: "POZNAJ chmurę hybrydową",
+    en: "DISCOVER hybrid cloud"
+  }
+};
+---
+
+<Section mode="light-blue">
+  <TwoColGrid>
+    <div slot="left">
+      <Subtitle isMb>
+        {t(content.subtitle)}
+      </Subtitle>
+      
+      <Heading level={2} isMb>
+        {t(content.title)}
+      </Heading>
+      
+      <Text class="mb-8" size="md">
+        {t(content.description)}
+      </Text>
+      
+      <Button href="/chmura-hybrydowa">
+        {t(content.cta)}
+      </Button>
+    </div>
+    
+    <div slot="right" class="flex items-center justify-center">
+      <div 
+        class="w-full h-80 rounded-lg flex items-center justify-center"
+        style="background-color: var(--u-gray-200)"
+      >
+        <Text type="light" class="text-center">
+          {t({
+            pl: "Wizualizacja chmury hybrydowej",
+            en: "Hybrid cloud visualization"
+          })}
+        </Text>
+      </div>
+    </div>
+  </TwoColGrid>
+</Section>

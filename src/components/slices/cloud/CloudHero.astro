@@ -1,0 +1,40 @@
+---
+import Section from '@/ui/Section.astro';
+import Heading from '@/ui/Heading.astro';
+import Text from '@/ui/Text.astro';
+import Button from '@/ui/Button.astro';
+import { t } from '@/utils/i18n.js';
+
+const content = {
+  title: {
+    pl: "Chmura publiczna",
+    en: "Public Cloud"
+  },
+  subtitle: {
+    pl: "Zasoby i moc obliczeniowa dostępne na żądanie",
+    en: "Computing resources and power available on demand"
+  },
+  ctaText: {
+    pl: "Poznaj chmurę publiczną",
+    en: "Discover public cloud"
+  }
+};
+---
+
+<Section mode="dark" isFullScreen>
+  <div class="max-w-2xl">
+    <Heading level={1} isMb>
+      {t(content.title)}
+    </Heading>
+    
+    <Text>
+      {t(content.subtitle)}
+    </Text>
+    
+    <div class="mt-8">
+      <Button href="#solutions">
+        {t(content.ctaText)}
+      </Button>
+    </div>
+  </div>
+</Section>

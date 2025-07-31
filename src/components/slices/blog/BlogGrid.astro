@@ -1,0 +1,66 @@
+---
+import Section from '../../ui/Section.astro';
+import BlogCard from '../../ui/BlogCard.astro';
+import { getCollection, type CollectionEntry } from 'astro:content';
+import { getCurrentLang } from '../../../utils/i18n.js';
+
+// Get all blog posts and sort by date (newest first)
+const allPosts = await getCollection('blog', ({ data }: CollectionEntry<'blog'>) => {
+  return data.draft !== true;
+});
+
+const sortedPosts = allPosts.sort((a: CollectionEntry<'blog'>, b: CollectionEntry<'blog'>) => 
+  b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
+);
+
+// Separate featured and regular posts
+const featuredPosts = sortedPosts.filter((post: CollectionEntry<'blog'>) => post.data.featured);
+const regularPosts = sortedPosts.filter((post: CollectionEntry<'blog'>) => !post.data.featured);
+---
+
+<Section mode="light-gray">
+  {allPosts.length === 0 && (
+    <div class="text-center py-12">
+      <p class="text-lg mb-4" style="color: var(--text);">No blog posts found</p>
+      <p class="text-sm" style="color: var(--text-light);">Check console for debugging information</p>
+    </div>
+  )}
+  
+
+  
+  {featuredPosts.length > 0 && (
+    <div class="mb-16">
+      <div class="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+        {featuredPosts.map((post: CollectionEntry<'blog'>) => (
+          <BlogCard
+            title={post.data.title}
+            description={post.data.description}
+            author={post.data.author}
+            pubDate={post.data.pubDate}
+            heroImage={post.data.heroImage}
+            tags={post.data.tags}
+            featured={post.data.featured}
+            slug={post.slug}
+          />
+        ))}
+      </div>
+    </div>
+  )}
+  
+  {regularPosts.length > 0 && (
+    <div class="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+      {regularPosts.map((post: CollectionEntry<'blog'>) => (
+        <BlogCard
+          title={post.data.title}
+          description={post.data.description}
+          author={post.data.author}
+          pubDate={post.data.pubDate}
+          heroImage={post.data.heroImage}
+          tags={post.data.tags}
+          featured={post.data.featured}
+          slug={post.slug}
+        />
+      ))}
+    </div>
+  )}
+</Section>

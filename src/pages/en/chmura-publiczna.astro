@@ -1,0 +1,32 @@
+---
+import Layout from '@/layouts/Layout.astro';
+import { t } from '@/utils/i18n.js';
+import CloudHero from '@/slices/cloud/CloudHero.astro';
+import CloudFeature1 from '@/slices/cloud/CloudFeature1.astro';
+import CloudFeature2 from '@/slices/cloud/CloudFeature2.astro';
+import CloudFeature3 from '@/slices/cloud/CloudFeature3.astro';
+import CloudSolutions from '@/slices/cloud/CloudSolutions.astro';
+import CloudProviders from '@/slices/cloud/CloudProviders.astro';
+import CloudHybridCta from '@/slices/cloud/CloudHybridCta.astro';
+import CloudSupport from '@/slices/cloud/CloudSupport.astro';
+import CloudContact from '@/slices/cloud/CloudContact.astro';
+import CloudCta from '@/slices/cloud/CloudCta.astro';
+
+const pageTitle = {
+  pl: "Chmura publiczna - Asseco Cloud",
+  en: "Public Cloud - Asseco Cloud"
+};
+---
+
+<Layout title={t(pageTitle)} navTheme="dark">
+  <CloudHero />
+  <CloudFeature1 />
+  <CloudFeature2 />
+  <CloudFeature3 />
+  <CloudSolutions />
+  <CloudProviders />
+  <CloudHybridCta />
+  <CloudSupport />
+  <CloudContact />
+  <CloudCta />
+</Layout>

@@ -1,0 +1,18 @@
+---
+export interface Props {
+  href?: string;
+  class?: string;
+}
+
+const { href = "#", class: className = "", ...rest } = Astro.props;
+---
+
+<div class={`pb-0.5 ${className}`} {...rest}>
+  <a 
+    href={href} 
+    class="leading-[1.5] tracking-[1%] inline-block border-b" 
+    style="color: var(--text); border-color: var(--text);"
+  >
+    <slot />
+  </a>
+</div>

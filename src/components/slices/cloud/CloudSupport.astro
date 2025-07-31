@@ -1,0 +1,69 @@
+---
+import Section from '@/ui/Section.astro';
+import Heading from '@/ui/Heading.astro';
+import Text from '@/ui/Text.astro';
+import { t } from '@/utils/i18n.js';
+
+const content = {
+  title: {
+    pl: "Wsparcie i wiedza ekspertów Asseco CLOUD",
+    en: "Support and expertise of Asseco CLOUD experts"
+  },
+  subtitle: {
+    pl: "Zobacz, dlaczego warto nam zaufać.",
+    en: "See why you should trust us."
+  }
+};
+
+const supportPoints = [
+  {
+    pl: "Realizujemy wdrożenia oparte o rozwiązania wiodących dostawców chmury.",
+    en: "We implement deployments based on solutions from leading cloud providers."
+  },
+  {
+    pl: "Świadczymy pełne wsparcie od momentu projektu aż po wdrożenie rozwiązania.",
+    en: "We provide full support from the project moment to solution implementation."
+  },
+  {
+    pl: "Dostarczamy narzędzia oraz wiedzę ekspercką niezależnie od rozmiaru projektu.",
+    en: "We deliver tools and expert knowledge regardless of project size."
+  }
+];
+
+const ctaText = {
+  pl: "Napisz do nas",
+  en: "Write to us"
+};
+---
+
+<Section mode="light">
+  <div class="text-center max-w-4xl mx-auto">
+    <Heading level={2} isMb>
+      {t(content.title)}
+    </Heading>
+    
+    <Text size="lg" class="mb-12">
+      {t(content.subtitle)}
+    </Text>
+    
+    <div class="space-y-6 mb-12">
+      {supportPoints.map((point) => (
+        <div class="flex items-start gap-4">
+          <!-- Checkmark icon -->
+          <div 
+            class="w-6 h-6 rounded-full flex items-center justify-center flex-shrink-0 mt-1"
+            style="background-color: var(--primary);"
+          >
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+              <path d="M13.5 4.5L6 12L2.5 8.5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+          
+          <Text size="md" class="text-left">
+            {t(point)}
+          </Text>
+        </div>
+      ))}
+    </div>
+  </div>
+</Section>

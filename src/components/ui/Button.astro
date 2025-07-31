@@ -1,0 +1,38 @@
+---
+export interface Props {
+  class?: string;
+  href?: string;
+  type?: 'button' | 'submit' | 'reset';
+  disabled?: boolean;
+  hideArrow?: boolean;
+}
+
+const {
+  class: className = '',
+  href,
+  type = 'button',
+  disabled = false,
+  hideArrow = false,
+  ...rest
+} = Astro.props;
+
+const buttonClasses = `inline-flex items-center justify-start gap-3 relative font-normal text-[16px] leading-[150%] tracking-[0.01em] text-[color:var(--text)] ${className}`;
+
+const Tag = href ? 'a' : 'button';
+const tagProps = href ? { href } : { type, disabled };
+---
+
+<Tag class={buttonClasses} {...tagProps} {...rest} style="color: var(--text);">
+  <span class="relative">
+    <slot />
+  </span>
+  
+  {!hideArrow && (
+    <div class="bg-[color:var(--link-bg)] rounded-2xl flex items-center justify-center flex-shrink-0 w-8 h-8 relative">
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
+        <path d="M3 8H13" stroke="currentColor" stroke-width="1.2" stroke-linecap="square" stroke-linejoin="round"/>
+        <path d="M10 4L14 8L10 12" stroke="currentColor" stroke-width="1.2" stroke-linecap="square"/>
+      </svg>
+    </div>
+  )}
+</Tag>

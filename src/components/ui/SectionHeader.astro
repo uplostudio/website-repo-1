@@ -1,0 +1,15 @@
+---
+interface Props {
+  isSimple?: boolean;
+  isCenter?: boolean;
+}
+
+const { isSimple = false, isCenter = false } = Astro.props as Props;
+---
+
+<div>
+    <div class={`${isSimple ? '' : 'pl-20'} ${isCenter ? 'text-center' : ''} pb-20 w-full`}>
+        <slot />
+    </div>
+    {!isSimple && <div class="w-full h-[1px] mb-20" style="background-color: var(--separator);"></div>}
+</div>

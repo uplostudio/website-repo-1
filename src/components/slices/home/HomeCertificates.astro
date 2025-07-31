@@ -1,0 +1,77 @@
+---
+import Section from '@/ui/Section.astro';
+import Heading from '@/ui/Heading.astro';
+import Text from '@/ui/Text.astro';
+import DocsGrid from '@/blocks/DocsGrid.astro';
+import DocsLinks from '@/blocks/DocsLinks.astro';
+import { t } from '@/utils/i18n.js';
+
+const content = {
+  title: {
+    pl: "Certyfikaty i normy",
+    en: "Certificates and Standards"
+  },
+  description: {
+    pl: "Z naszych systemów korzystają m.in. banki, firmy energetyczne i telekomunikacyjne, sektor publiczny oraz opieki zdrowotnej. Stale podnosimy swoje kompetencje i inwestujemy w prace badawczo-rozwojowe, ponieważ najważniejszy jest dla nas sukces naszych klientów.",
+    en: "Our systems are used by banks, energy and telecommunications companies, public sector and healthcare. We constantly improve our competences and invest in research and development, because the success of our clients is most important to us."
+  },
+  certificates: [
+    {
+      name: "ISO 9001:2015",
+      pl: "ISO 9001:2015",
+      en: "ISO 9001:2015"
+    },
+    {
+      name: "ISO 27001:2017", 
+      pl: "ISO 27001:2017",
+      en: "ISO 27001:2017"
+    },
+    {
+      name: "internal-control-certificate",
+      pl: "Certyfikat Wewnętrznego Systemu Kontroli",
+      en: "Internal Control System Certificate"
+    },
+    {
+      name: "certificate-confirmation",
+      pl: "Potwierdzenie do Certyfikatów",
+      en: "Certificate Confirmation"
+    },
+    {
+      name: "locations-list",
+      pl: "Wykaz lokalizacji objętych certyfikatem",
+      en: "List of locations covered by the certificate"
+    }
+  ],
+  cta: {
+    pl: "Nasza oferta",
+    en: "Our Offer"
+  }
+};
+
+// Prepare data for DocsSection component
+const certificateLinks = content.certificates.map((cert) => ({
+  href: "#",
+  text: t({ pl: cert.pl, en: cert.en })
+}));
+---
+
+<Section mode="light-blue" sliceName="HomeCertificates">
+  <DocsGrid>
+    <div slot="content">
+      <Heading level={2} isMb class="max-w-[800px]">
+        {t(content.title)}
+      </Heading>
+      
+      <Text class="max-w-[600px]">
+        {t(content.description)}
+      </Text>
+    </div>
+
+    <DocsLinks 
+      slot="docs"
+      links={certificateLinks}
+      ctaText={t(content.cta)}
+      ctaHref="#"
+    />
+  </DocsGrid>
+</Section>

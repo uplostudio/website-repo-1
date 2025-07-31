@@ -1,0 +1,8 @@
+/* Import styles */
+@import "./fonts.css";
+@import "./colors.css";
+@import "tailwindcss";
+
+body {
+  font-family: 'Geomanist', sans-serif;
+}

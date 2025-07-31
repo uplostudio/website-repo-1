@@ -1,0 +1,34 @@
+---
+import Section from '@/ui/Section.astro';
+import Heading from '@/ui/Heading.astro';
+import Text from '@/ui/Text.astro';
+import TwoColGrid from '@/ui/2ColGrid.astro';
+import { t } from '@/utils/i18n.js';
+
+---
+
+<Section mode="light-gray">
+  <TwoColGrid>
+    <div slot="left">
+      <Heading level={2} isMb>
+        {t({
+          pl: "Płatności tylko za wykorzystane zasoby",
+          en: "Pay only for used resources"
+        })}
+      </Heading>
+      
+      <Text size="md">
+        {t({
+          pl: "Firmy doceniają chmurę za oszczędności finansowe. Płatności realizowane są tylko za te zasoby, które są w danym momencie wykorzystywane. Jest to całkowite przeciwieństwo serwerów współdzielonych i dedykowanych, gdzie płatność realizowana jest zawsze za całą, dostępną moc, niezależnie od tego czy zostaje wykorzystana. Dodatkową zaletą są także koszty samych zasobów, które w ujęciu chmurowym są po prostu niższe.",
+          en: "Companies appreciate the cloud for financial savings. Payments are made only for those resources that are currently being used. This is the complete opposite of shared and dedicated servers, where payment is always made for all available power, regardless of whether it is used. An additional advantage is also the cost of the resources themselves, which in cloud terms are simply lower."
+        })}
+      </Text>
+    </div>
+    
+    <div slot="right" class="flex items-center justify-center">
+      <div class="w-full h-140 rounded-lg overflow-hidden">
+        <img src="/img-5.jpg" loading="lazy"
+      </div>
+    </div>
+  </TwoColGrid>
+</Section>

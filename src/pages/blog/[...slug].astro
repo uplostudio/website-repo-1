@@ -1,0 +1,31 @@
+---
+import { getCollection, type CollectionEntry } from 'astro:content';
+import BlogPost from '@/layouts/BlogPost.astro';
+import { getCurrentLang } from '@/utils/i18n.js';
+
+export async function getStaticPaths() {
+  const blogEntries = await getCollection('blog', ({ data }: CollectionEntry<'blog'>) => {
+    return data.draft !== true;
+  });
+
+  return blogEntries.map((entry: CollectionEntry<'blog'>) => ({
+    params: { slug: entry.slug },
+    props: { entry },
+  }));
+}
+
+interface Props {
+  entry: CollectionEntry<'blog'>;
+}
+
+const { entry } = Astro.props;
+const { Content } = await entry.render();
+const currentLang = getCurrentLang();
+
+// Filter content based on current language
+const contentParts = await entry.render();
+---
+
+<BlogPost post={entry}>
+  <Content />
+</BlogPost>

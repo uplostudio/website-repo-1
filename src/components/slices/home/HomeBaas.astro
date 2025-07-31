@@ -1,0 +1,110 @@
+---
+import Section from '@/ui/Section.astro';
+import TwoColGrid from '@/ui/2ColGrid.astro';
+import Heading from '@/ui/Heading.astro';
+import Text from '@/ui/Text.astro';
+import Faq from '@/ui/Faq.astro';
+import { t } from '@/utils/i18n.js';
+
+
+const title = {
+  pl: "Po co BaaS w Twojej organizacji?",
+  en: "Why BaaS in your organization?"
+};
+
+const subtitle = {
+  pl: "Zobacz sześć kluczowych powodów, dlaczego warto wybrać tę usługę:",
+  en: "See six key reasons why you should choose this service:"
+};
+
+const faqItems = [
+  {
+    question: {
+      pl: "Zabezpiecza przed utratą danych",
+      en: "Protects against data loss"
+    },
+    answer: {
+      pl: "Zapewnia regularne i niezawodne tworzenie kopii zapasowych danych w chmurze. Eliminujesz ryzyko utraty cennych informacji biznesowych w wyniku awarii, błędów użytkowników czy cyberataków.",
+      en: "Provides regular and reliable backup creation in the cloud. You eliminate the risk of losing valuable business information due to failures, user errors, or cyberattacks."
+    }
+  },
+  {
+    question: {
+      pl: "Przywraca operacyjność",
+      en: "Restores operability"
+    },
+    answer: {
+      pl: "Umożliwia szybkie przywrócenie systemu do działania po awarii. Minimalizuje przestoje i zapewnia ciągłość biznesową.",
+      en: "Enables quick system restoration after failure. Minimizes downtime and ensures business continuity."
+    }
+  },
+  {
+    question: {
+      pl: "Oszczędza czas i zasoby",
+      en: "Saves time and resources"
+    },
+    answer: {
+      pl: "Automatyzuje proces tworzenia kopii zapasowych, co pozwala zespołowi IT skupić się na innych zadaniach strategicznych.",
+      en: "Automates the backup process, allowing the IT team to focus on other strategic tasks."
+    }
+  },
+  {
+    question: {
+      pl: "Skaluje zasoby",
+      en: "Scales resources"
+    },
+    answer: {
+      pl: "Dostosowuje się do rosnących potrzeb organizacji bez konieczności inwestowania w dodatkową infrastrukturę.",
+      en: "Adapts to the growing needs of the organization without the need to invest in additional infrastructure."
+    }
+  },
+  {
+    question: {
+      pl: "Zwiększa bezpieczeństwo",
+      en: "Increases security"
+    },
+    answer: {
+      pl: "Oferuje zaawansowane mechanizmy szyfrowania i kontroli dostępu, chroniąc dane przed nieautoryzowanym dostępem.",
+      en: "Offers advanced encryption and access control mechanisms, protecting data from unauthorized access."
+    }
+  },
+  {
+    question: {
+      pl: "Gwarantuje spokój",
+      en: "Guarantees peace of mind"
+    },
+    answer: {
+      pl: "Daje pewność, że dane są bezpieczne i zawsze dostępne, co pozwala skupić się na rozwoju biznesu.",
+      en: "Provides confidence that data is secure and always available, allowing you to focus on business development."
+    }
+  }
+];
+---
+
+<Section mode="dark" sliceName="HomeBaas">
+  <TwoColGrid isAlignedTop>
+    <div slot="left" class="lg:min-w-[614px]">
+        <Heading level={2} size={2} isMb>
+            {t(title)}
+        </Heading>
+        
+        <Text class="mb-8">
+        {t(subtitle)}
+        </Text>
+        
+        <Faq faqItems={faqItems.map(item => ({
+            question: t(item.question),
+            answer: t(item.answer)
+        }))} />
+    </div>
+    
+    <div slot="right" class="flex items-center justify-center">
+      <div 
+        class="w-full h-[568px] rounded-lg overflow-hidden"
+        style="background-color: var(--u-gray-100)"
+      >
+        <img src="/baas-team-collaboration.jpg" loading="lazy"
+      </div>
+    </div>
+  </TwoColGrid>
+</Section>

@@ -1,0 +1,40 @@
+---
+import DocsLink from '@/ui/DocsLink.astro';
+import Button from '@/ui/Button.astro';
+
+export interface Props {
+  links: Array<{
+    href?: string;
+    text: string;
+  }>;
+  ctaText?: string;
+  ctaHref?: string;
+  class?: string;
+}
+
+const { 
+  links, 
+  ctaText, 
+  ctaHref = "#", 
+  class: className = "",
+  ...rest 
+} = Astro.props;
+---
+
+<div class={`${ctaText ? 'min-h-[320px]' : ''} flex flex-col ${className}`} {...rest}>
+  <div class="space-y-2.5">
+    {links.map((link) => (
+      <DocsLink href={link.href || "#"}>
+        {link.text}
+      </DocsLink>
+    ))}
+  </div>
+
+  {ctaText && (
+    <div class="mt-auto">
+      <Button href={ctaHref}>
+        {ctaText}
+      </Button>
+    </div>
+  )}
+</div>

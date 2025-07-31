@@ -1,0 +1,124 @@
+---
+import Section from '@/ui/Section.astro';
+import Heading from '@/ui/Heading.astro';
+import Text from '@/ui/Text.astro';
+import Icon from '@/ui/Icon.astro';
+import { t } from '@/utils/i18n.js';
+import { 
+  Award,
+  Monitor,
+  Settings,
+  Headphones
+} from 'lucide-astro';
+
+const sectionTitle = {
+  pl: "Skuteczna i spersonalizowana ochrona Twojego biznesu z Asseco Cloud",
+  en: "Effective and personalized protection of your business with Asseco Cloud"
+};
+
+const sectionSubtitle = {
+  pl: "Sprawdź, dlaczego warto z nami współpracować:",
+  en: "See why it's worth working with us:"
+};
+
+const iconComponents = {
+  experience: Award,
+  presentation: Monitor,
+  settings: Settings,
+  support: Headphones
+};
+
+const iconSizes = {
+  sm: 20,
+  md: 24,
+  lg: 32,
+  xl: 40
+};
+
+const features = [
+  {
+    icon: 'experience',
+    title: {
+      pl: "Doświadczenie",
+      en: "Experience"
+    },
+    description: {
+      pl: "Posiadamy wieloletnie doświadczenie w budowie BCP dla sektora bankowego, administracji publicznej i służby zdrowia.",
+      en: "We have years of experience in building BCP for the banking sector, public administration and healthcare."
+    }
+  },
+  {
+    icon: 'presentation',
+    title: {
+      pl: "Nowoczesne technologie i narzędzia",
+      en: "Modern technologies and tools"
+    },
+    description: {
+      pl: "Wykorzystujemy najnowsze narzędzia chmurowe, które umożliwiają szybką reakcję i przywrócenie działalności firmy po awarii.",
+      en: "We use the latest cloud tools that enable quick response and business recovery after a failure."
+    }
+  },
+  {
+    icon: 'settings',
+    title: {
+      pl: "Spersonalizowane rozwiązania",
+      en: "Personalized solutions"
+    },
+    description: {
+      pl: "Dostosowujemy nasze usługi do unikalnych potrzeb każdej firmy, zapewniając optymalną ochronę dzięki pracy ekspertów.",
+      en: "We adapt our services to the unique needs of each company, ensuring optimal protection through expert work."
+    }
+  },
+  {
+    icon: 'support',
+    title: {
+      pl: "Wsparcie na każdym etapie",
+      en: "Support at every stage"
+    },
+    description: {
+      pl: "Zapewniamy kompleksowe wsparcie w tworzeniu i utrzymaniu planów ciągłości działania, towarzysząc klientowi na każdym kroku.",
+      en: "We provide comprehensive support in creating and maintaining business continuity plans, accompanying the client at every step."
+    }
+  }
+];
+---
+
+<Section mode="light" sliceName="HomeCloudFeatures">
+    <div class="mb-20">
+      <Heading level={2} isMb class="max-w-[800px]">
+        {t(sectionTitle)}
+      </Heading>
+      
+      <Text class="max-w-[600px]" size="lg">
+        {t(sectionSubtitle)}
+      </Text>
+    </div>
+    
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-x-20 gap-y-16">
+      {features.map((feature) => {
+        const IconComponent = iconComponents[feature.icon as keyof typeof iconComponents];
+        return (
+          <div class="flex flex-col">
+            <div class="mb-6">
+              <Icon size="md">
+                <IconComponent
+                  size={iconSizes.md}
+                  color="var(--u-white)"
+                />
+              </Icon>
+            </div>
+            
+            <div class="space-y-4">
+              <Heading level={3}>
+                {t(feature.title)}
+              </Heading>
+              
+              <Text size="md">
+                {t(feature.description)}
+              </Text>
+            </div>
+          </div>
+        );
+      })}
+    </div>
+</Section>

@@ -1,0 +1,130 @@
+/* Design System Colors - CSS Custom Properties */
+
+:root {
+  /* Utility Colors - White */
+  --u-white: #FFFFFF;
+  --u-white-5: rgba(255, 255, 255, 0.05);
+  --u-white-10: rgba(255, 255, 255, 0.10);
+  --u-white-20: rgba(255, 255, 255, 0.20);
+  --u-white-50: rgba(255, 255, 255, 0.50);
+  --u-white-70: rgba(255, 255, 255, 0.70);
+
+  /* Utility Colors - Black */
+  --u-black: #01080F;
+  --u-black-5: rgba(1, 8, 15, 0.05);
+  --u-black-10: rgba(1, 8, 15, 0.10);
+  --u-black-20: rgba(1, 8, 15, 0.20);
+  --u-black-50: rgba(1, 8, 15, 0.50);
+  --u-black-70: rgba(1, 8, 15, 0.70);
+
+  /* Utility Colors - Light Blue */
+  --u-light-blue: #D9ECFD;
+
+  /* Gray Scale */
+  --u-gray-100: #F9F9F9;
+  --u-gray-200: #F1F1F1;
+  --u-gray-300: #E2E2E2;
+  --u-gray-400: #DEDEDE;
+  --u-gray-500: #A9A9A9;
+
+  /* Main Colors */
+  --u-blue: #1D9BF0;
+  --u-dark-blue: #252476;
+
+  /* Special Colors */
+  --u-map-color: #8AC8FF;
+
+  /* Semantic Aliases */
+  --primary: var(--u-blue);
+  --primary-dark: var(--u-dark-blue);
+  --accent: var(--u-light-blue);
+}
+
+/* Light Mode (Default) */
+:root,
+[data-theme="light"] {
+  --bg: var(--u-white);
+  --bg-100: var(--u-gray-100);
+  --bg-200: var(--u-gray-200);
+  --text: var(--u-black);
+  --text-light: var(--u-black-70);
+  --text-light-2: var(--u-black-50);
+  --accent-color: var(--u-blue);
+  --link-bg: var(--u-gray-200);
+  --separator: var(--u-black-10);
+  --input-border: var(--u-gray-300);
+  --card-border: var(--u-gray-400);
+  --placeholder: var(--u-gray-500);
+  --gradient-start: var(--u-white);
+  --gradient-end: var(--u-dark-blue);
+  --nav-bg: var(--u-white-5);
+  --slider-pagination: var(--u-gray-300);
+  --post-card-bg: var(--u-gray-100);
+  --map: var(--u-map-color);
+}
+
+/* Dark Mode */
+[data-theme="dark"] {
+  --bg: var(--u-black);
+  --bg-100: var(--u-white-10);
+  --bg-200: var(--u-white-10);
+  --text: var(--u-white);
+  --text-light: var(--u-white-70);
+  --text-light-2: var(--u-white-50);
+  --accent-color: var(--u-blue);
+  --link-bg: var(--u-white-20);
+  --separator: var(--u-white-20);
+  --input-border: var(--u-white-70);
+  --card-border: var(--u-white-20);
+  --placeholder: var(--u-white-70);
+  --gradient-start: var(--u-white);
+  --gradient-end: var(--u-dark-blue);
+  --nav-bg: var(--u-black-5);
+  --slider-pagination: var(--u-white);
+  --post-card-bg: var(--u-white-10);
+  --map: #FFFFFF;
+}
+
+/* Light Gray Mode */
+[data-theme="light-gray"] {
+  --bg: var(--u-gray-100);
+  --bg-100: var(--u-white);
+  --bg-200: var(--u-gray-100);
+  --text: var(--u-black);
+  --text-light: var(--u-black-70);
+  --text-light-2: var(--u-black-50);
+  --accent-color: var(--u-blue);
+  --link-bg: var(--u-white);
+  --separator: var(--u-black-10);
+  --input-border: var(--u-gray-300);
+  --card-border: var(--u-gray-400);
+  --placeholder: var(--u-gray-500);
+  --gradient-start: var(--u-gray-100);
+  --gradient-end: var(--u-dark-blue);
+  --nav-bg: var(--u-white-5);
+  --slider-pagination: var(--u-gray-400);
+  --post-card-bg: var(--u-white);
+  --map: var(--u-map-color);
+}
+
+/* Light Blue Mode */
+[data-theme="light-blue"] {
+  --bg: var(--u-light-blue);
+  --bg-100: var(--u-white);
+  --bg-200: var(--u-gray-100);
+  --text: var(--u-black);
+  --text-light: var(--u-black-70);
+  --text-light-2: var(--u-black-50);
+  --accent-color: var(--u-blue);
+  --link-bg: var(--u-white-50);
+  --separator: var(--u-black-5);
+  --input-border: var(--u-gray-300);
+  --card-border: var(--u-gray-400);
+  --placeholder: var(--u-gray-500);
+  --gradient-start: var(--u-white);
+  --gradient-end: rgba(37, 36, 118, 0.2);
+  --nav-bg: var(--u-white-5);
+  --slider-pagination: var(--u-white);
+  --post-card-bg: var(--u-white);
+  --map: var(--u-map-color);
+}

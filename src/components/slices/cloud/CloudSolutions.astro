@@ -1,0 +1,108 @@
+---
+import Section from '@/ui/Section.astro';
+import Heading from '@/ui/Heading.astro';
+import Text from '@/ui/Text.astro';
+import Subtitle from '@/ui/Subtitle.astro';
+import Slider from '@/ui/Slider.astro';
+import { t } from '@/utils/i18n.js';
+
+const sectionTitle = {
+  pl: "Rozwiązania chmury publicznej, dopasowane do bieżących potrzeb",
+  en: "Public cloud solutions, adapted to current needs"
+};
+
+const sectionSubtitle = {
+  pl: "Dostępne rozwiązania",
+  en: "Available solutions"
+};
+
+const description = {
+  pl: "Chmura publiczna to zarówno cała infrastruktura w zwirtualizowanym środowisku, jak i poszczególne rozwiązania lub technologie, które mogą zastąpić obecnie posiadane zasoby lub też odciążyć własną infrastrukturę, pozwalając w dłuższej perspektywie na oszczędności finansowe.",
+  en: "Public cloud is both the entire infrastructure in a virtualized environment, as well as individual solutions or technologies that can replace currently owned resources or relieve your own infrastructure, allowing for financial savings in the long term."
+};
+
+const solutions = [
+  {
+    title: {
+      pl: "Sieć i adresacja IP",
+      en: "Network and IP addressing"
+    },
+    description: {
+      pl: "Chmura publiczna zapewnia dostęp do niemal nieograniczonej liczby publicznych adresów IPv4 i IPv6. Dodatkowe mechanizmy pozwalające tworzyć i zarządząć sieciami wewnętrznymi i routingiem usprawniają wymianę danych między węzłami. To pozwala tworzyć bezpieczne, stabilne i przede wszystkim odporne na awarie środowisko sieciowe.",
+      en: "Public cloud provides access to almost unlimited number of public IPv4 and IPv6 addresses. Additional mechanisms allowing to create and manage internal networks and routing improve data exchange between nodes. This allows creating secure, stable and above all failure-resistant network environment."
+    }
+  },
+  {
+    title: {
+      pl: "Wydajny magazyn danych",
+      en: "High-performance data storage"
+    },
+    description: {
+      pl: "Przestrzeń w chmurze publicznej musi być dostępna. Zawsze i wszędzie. Dostawcy oferują różne poziomy wydajności i zabezpieczeń, co pozwala adresować określone wymagania projektu i optymalizować koszty. Do dyspozycji są rozwiązania oparte o tzw. persistent storage (tzw. trwałe, odporne na awarie i usuwanie danych) oraz wydajne, optymalizowane pod kątem dużej liczby operacji zapisu / odczytu.",
+      en: "Space in public cloud must be available. Always and everywhere. Providers offer different levels of performance and security, which allows to address specific project requirements and optimize costs. Available are solutions based on so-called persistent storage (so-called durable, resistant to failures and data deletion) and high-performance, optimized for a large number of write/read operations."
+    }
+  },
+  {
+    title: {
+      pl: "Wirtualizowane zasoby sprzętowe",
+      en: "Virtualized hardware resources"
+    },
+    description: {
+      pl: "Zasoby takie jak CPU czy RAM są wirtualizowane, co pozwala dostarczać wysoką moc obliczeniową w ramach pojedynczego środowiska wirtualnego. Takie rozwiązanie przewyższa pod względem wydajności klasyczną, dedykowaną infrastrukturę pozwalając firmom oszczędzać zasoby i alokować je w inne, newralgiczne dla projektów miejsca.",
+      en: "Resources such as CPU or RAM are virtualized, which allows delivering high computing power within a single virtual environment. Such solution exceeds in terms of performance classic, dedicated infrastructure allowing companies to save resources and allocate them to other, critical for projects places."
+    }
+  },
+  {
+    title: {
+      pl: "Wysoka dostępność (HA)",
+      en: "High availability (HA)"
+    },
+    description: {
+      pl: "Tworzenie rozwiązań opartych o model HA (high availability) w przypadku serwerów dedykowanych jest czasochłonne i kosztowne. Chmura, niezależnie od dostawcy, pozwala wdrażać projekty oparte o wysoką dostępność za ułamek kosztu ponoszonego w ramach własnej infrastruktury.",
+      en: "Creating solutions based on HA (high availability) model in case of dedicated servers is time-consuming and expensive. Cloud, regardless of the provider, allows implementing projects based on high availability for a fraction of the cost incurred within your own infrastructure."
+    }
+  },
+  {
+    title: {
+      pl: "Pay as you g(r)o(w)",
+      en: "Pay as you g(r)o(w)"
+    },
+    description: {
+      pl: "Model rozliczeń chmury jest zawsze bardzo przejrzysty – płacimy tylko za te zasoby, które w danym momencie zostały zaalokowane. Z reguły w ujęciu godzinowym. Dotyczy to zarówno zasobów takich jak przestrzeń, CPU czy RAM, ale także licencji za poszczególne, dodatkowe usługi uruchamiane np. w chmurze Azure.",
+      en: "The cloud billing model is always very transparent – we pay only for those resources that have been allocated at a given moment. Usually on an hourly basis. This applies to both resources such as space, CPU or RAM, but also licenses for individual, additional services launched, for example, in the Azure cloud."
+    }
+  },
+  {
+    title: {
+      pl: "Skalowanie pionowe i poziome",
+      en: "Vertical and horizontal scaling"
+    },
+    description: {
+      pl: "Chmura zapewnia elastyczne podejście do zarządzania mocą obliczeniową i dostępnymi zasobami. Możliwość ustawienia automatycznego skalowania zasobów w poziomie (uruchamiane dodatkowe serwery/środowiska) lub w pionie (zwiększanie już przydzielonych zasobów) to elementy, które doceniają w chmurze wszyscy – programiści, testerzy oraz użytkownicy aplikacji.",
+      en: "Cloud provides flexible approach to managing computing power and available resources. The ability to set automatic scaling of resources horizontally (launching additional servers/environments) or vertically (increasing already allocated resources) are elements that everyone appreciates in the cloud – developers, testers and application users."
+    }
+  }
+];
+---
+
+<Section mode="light" class="overflow-hidden">
+  <!-- Header -->
+  <div class="flex flex-col lg:flex-row lg:justify-between lg:items-start gap-6 lg:gap-0 mb-8 lg:mb-16">
+    <div class="max-w-[876px]">
+      <Subtitle isMb>
+        {t(sectionSubtitle)}
+      </Subtitle>
+        
+      <Heading level={2} isMb class="max-w-[726px]">
+        {t(sectionTitle)}
+      </Heading>
+      
+      <Text class="max-w-[876px]" size="lg">
+        {t(description)}
+      </Text>
+    </div>
+  </div>
+  
+  <!-- Slider Component -->
+  <Slider items={solutions} />
+</Section>

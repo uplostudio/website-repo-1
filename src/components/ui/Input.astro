@@ -1,0 +1,63 @@
+---
+export interface Props {
+  type?: 'text' | 'email' | 'tel' | 'password' | 'url' | 'number';
+  name: string;
+  label?: string;
+  placeholder?: string;
+  required?: boolean;
+  disabled?: boolean;
+  class?: string;
+  rows?: number;
+  isTextarea?: boolean;
+}
+
+const {
+  type = 'text',
+  name,
+  label,
+  placeholder,
+  required = false,
+  disabled = false,
+  class: className = '',
+  rows = 5,
+  isTextarea = false,
+  ...rest
+} = Astro.props;
+
+const inputClasses = `w-full px-6 py-3.5 rounded-lg border transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-[color:var(--primary)] ${className}`;
+const labelClasses = `block text-[18px] mb-2.5`;
+---
+
+<div class="flex flex-col">
+  {label && (
+    <label for={name} class={labelClasses}>
+      {label}
+    </label>
+  )}
+  
+  {isTextarea ? (
+    <textarea
+      id={name}
+      name={name}
+      rows={rows}
+      placeholder={placeholder}
+      required={required}
+      disabled={disabled}
+      class={`${inputClasses} resize-vertical`}
+      style="background-color: transparent; border-color: var(--input-border); color: var(--text);"
+      {...rest}
+    ></textarea>
+  ) : (
+    <input
+      id={name}
+      type={type}
+      name={name}
+      placeholder={placeholder}
+      required={required}
+      disabled={disabled}
+      class={`${inputClasses} h-[58px]`}
+      style="background-color: transparent; border-color: var(--input-border); color: var(--text);"
+      {...rest}
+    />
+  )}
+</div>

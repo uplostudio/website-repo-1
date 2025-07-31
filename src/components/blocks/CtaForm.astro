@@ -1,0 +1,76 @@
+---
+import Input from '@/ui/Input.astro';
+import Checkbox from '@/ui/Checkbox.astro';
+import SubmitButton from '@/ui/SubmitButton.astro';
+import { t } from '@/utils/i18n.js';
+
+const formLabels = {
+  name: {
+    pl: "Imię i nazwisko",
+    en: "Name and surname"
+  },
+  company: {
+    pl: "Instytucja lub firma",
+    en: "Institution or company"
+  },
+  message: {
+    pl: "Twoja wiadomość",
+    en: "Your message"
+  },
+  consent: {
+    pl: "Zgodnie z art.6 ust.1 lit. a ogólnego rozporządzenia o ochronie danych osobowych z dnia 27 kwietnia 2016 r. (Dz. Urz. UE L 119 z 04.05.2016) „RODO\" wyrażam zgodę na przetwarzanie moich danych osobowych zawartych w formularzu przez Asseco Poland S.A.",
+    en: "In accordance with Art. 6(1)(a) of the General Data Protection Regulation of 27 April 2016 (OJ EU L 119 of 04.05.2016) 'GDPR', I consent to the processing of my personal data contained in the form by Asseco Poland S.A."
+  },
+  privacyLink: {
+    pl: "Zobacz pełną klauzulę RODO",
+    en: "See full GDPR clause"
+  },
+  submit: {
+    pl: "Wyślij",
+    en: "Send"
+  }
+};
+---
+
+<!-- Contact Form -->
+<div class="relative max-w-[546px] mx-auto">
+  <div class="p-8 rounded border" style="border-color: var(--card-border);">
+    <form class="space-y-6" action="#" method="POST">
+      <Input
+        type="text"
+        name="name"
+        label={t(formLabels.name)}
+        placeholder="Placeholder"
+        required
+      />
+      
+      <Input
+        type="text"
+        name="company"
+        label={t(formLabels.company)}
+        placeholder="Placeholder"
+        required
+      />
+      
+      <Input
+        name="message"
+        label={t(formLabels.message)}
+        placeholder="Placeholder"
+        isTextarea
+        rows={5}
+      />
+      
+      <Checkbox name="consent" label="consent" required>
+        <p class="mb-2">{t(formLabels.consent)}</p>
+        <a href="#" class="underline hover:opacity-80 transition-opacity" style="color: var(--text);">
+          {t(formLabels.privacyLink)}
+        </a>
+      </Checkbox>
+      
+      <SubmitButton 
+        text={t(formLabels.submit)}
+        class="mt-4"
+      />
+    </form>
+  </div>
+</div>

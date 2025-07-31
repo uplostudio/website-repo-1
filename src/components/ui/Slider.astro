@@ -1,0 +1,257 @@
+---
+import { t } from '@/utils/i18n.js';
+import Text from './Text.astro';
+import Heading from './Heading.astro';
+
+export interface SliderItem {
+  title: {
+    pl: string;
+    en: string;
+  };
+  description: {
+    pl: string;
+    en: string;
+  };
+}
+
+interface Props {
+  items: SliderItem[];
+  class?: string;
+}
+
+const { items, class: className = "" } = Astro.props;
+---
+
+<div 
+  class={`w-full ${className}`}
+  x-data="{
+    itemsLength: {items.length},
+    currentIndex: 0,
+    cardWidth: 320,
+    gap: 12,
+    visibleCards: 1,
+    maxIndex: 5,
+    // Touch/swipe and mouse drag properties
+    touchStartX: 0,
+    touchEndX: 0,
+    isDragging: false,
+    dragStartIndex: 0,
+    isMouseDown: false,
+    init() {
+      this.updateResponsiveSettings();
+      this.updateVisibleCards();
+      window.addEventListener('resize', () => {
+        this.updateResponsiveSettings();
+        this.updateVisibleCards();
+      });
+      
+      // Global mouse events for better drag handling
+      document.addEventListener('mousemove', (e) => {
+        if (this.isMouseDown && this.isDragging) {
+          this.handleMouseMove(e);
+        }
+      });
+      
+      document.addEventListener('mouseup', (e) => {
+        if (this.isMouseDown) {
+          this.handleMouseUp(e);
+        }
+      });
+    },
+    updateResponsiveSettings() {
+      const screenWidth = window.innerWidth;
+      if (screenWidth >= 1280) {
+        this.cardWidth = 415;
+        this.gap = 12;
+      } else if (screenWidth >= 1024) {
+        this.cardWidth = 380;
+        this.gap = 12;
+      } else if (screenWidth >= 768) {
+        this.cardWidth = 340;
+        this.gap = 12;
+      } else if (screenWidth >= 640) {
+        this.cardWidth = 300;
+        this.gap = 8;
+      } else {
+        this.cardWidth = 280;
+        this.gap = 8;
+      }
+    },
+    updateVisibleCards() {
+      const container = this.$el.querySelector('.cards-container');
+      if (container) {
+        const containerWidth = container.clientWidth;
+        this.visibleCards = Math.max(1, Math.floor((containerWidth + this.gap) / (this.cardWidth + this.gap)));
+        this.maxIndex = Math.max(0, this.itemsLength - this.visibleCards);
+        // Reset current index if it exceeds max
+        if (this.currentIndex > this.maxIndex) {
+          this.currentIndex = this.maxIndex;
+        }
+      }
+    },
+    nextSlide() {
+      if (this.currentIndex < this.maxIndex) {
+        this.currentIndex++;
+      }
+    },
+    prevSlide() {
+      if (this.currentIndex > 0) {
+        this.currentIndex--;
+      }
+    },
+    getTransform() {
+      return `translateX(-${this.currentIndex * (this.cardWidth + this.gap)}px)`;
+    },
+    // Touch event handlers
+    handleTouchStart(e) {
+      this.touchStartX = e.touches[0].clientX;
+      this.isDragging = true;
+      this.dragStartIndex = this.currentIndex;
+    },
+    handleTouchMove(e) {
+      if (!this.isDragging) return;
+      e.preventDefault(); // Prevent scrolling while swiping
+      this.touchEndX = e.touches[0].clientX;
+    },
+    handleTouchEnd(e) {
+      if (!this.isDragging) return;
+      this.isDragging = false;
+      
+      const deltaX = this.touchStartX - this.touchEndX;
+      const minSwipeDistance = 50; // Minimum distance for a swipe
+      
+      if (Math.abs(deltaX) > minSwipeDistance) {
+        if (deltaX > 0) {
+          // Swiped left - go to next slide
+          this.nextSlide();
+        } else {
+          // Swiped right - go to previous slide
+          this.prevSlide();
+        }
+      }
+      
+      this.touchStartX = 0;
+      this.touchEndX = 0;
+    },
+    // Mouse event handlers for desktop dragging
+    handleMouseDown(e) {
+      this.touchStartX = e.clientX;
+      this.isDragging = true;
+      this.isMouseDown = true;
+      this.dragStartIndex = this.currentIndex;
+      e.preventDefault(); // Prevent text selection
+    },
+    handleMouseMove(e) {
+      if (!this.isDragging || !this.isMouseDown) return;
+      e.preventDefault();
+      this.touchEndX = e.clientX;
+    },
+    handleMouseUp(e) {
+      if (!this.isDragging || !this.isMouseDown) return;
+      this.isDragging = false;
+      this.isMouseDown = false;
+      
+      const deltaX = this.touchStartX - this.touchEndX;
+      const minDragDistance = 50; // Minimum distance for a drag
+      
+      if (Math.abs(deltaX) > minDragDistance) {
+        if (deltaX > 0) {
+          // Dragged left - go to next slide
+          this.nextSlide();
+        } else {
+          // Dragged right - go to previous slide
+          this.prevSlide();
+        }
+      }
+      
+      this.touchStartX = 0;
+      this.touchEndX = 0;
+    },
+    handleMouseLeave(e) {
+      // Reset drag state if mouse leaves the container while dragging
+      if (this.isMouseDown) {
+        this.isDragging = false;
+        this.isMouseDown = false;
+        this.touchStartX = 0;
+        this.touchEndX = 0;
+      }
+    }
+  }"
+>
+  <!-- Navigation Controls -->
+  <div class="flex gap-3 lg:mt-auto">
+    <button
+      @click="prevSlide()"
+      class="w-10 h-10 lg:w-12 lg:h-12 rounded-full flex items-center justify-center transition-all duration-200 border border-solid"
+      style="background-color: var(--rux-color-background-base-default, var(--u-black)); 
+             color: var(--rux-color-text-primary, var(--u-white)); 
+             border-color: var(--rux-color-border-interactive-muted, var(--u-gray-300));
+             opacity: 0.6;"
+      aria-label="Previous slide"
+    >
+      <svg width="16" height="16" class="lg:w-5 lg:h-5" viewBox="0 0 24 24" fill="none">
+        <path d="M15 18L9 12L15 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </button>
+    
+    <button
+      @click="nextSlide()"
+      class="w-10 h-10 lg:w-12 lg:h-12 rounded-full flex items-center justify-center transition-all duration-200 border border-solid"
+      style="background-color: var(--rux-color-background-base-default, var(--u-black)); 
+             color: var(--rux-color-text-primary, var(--u-white)); 
+             border-color: var(--rux-color-border-interactive-muted, var(--u-gray-300));"
+      aria-label="Next slide"
+    >
+      <svg width="16" height="16" class="lg:w-5 lg:h-5" viewBox="0 0 24 24" fill="none">
+        <path d="M9 18L15 12L9 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </button>
+  </div>
+  
+  <!-- Cards Container -->
+  <div class="w-full">
+   <div 
+     class="cards-container w-full touch-pan-y cursor-grab"
+     @touchstart="handleTouchStart($event)"
+     @touchmove="handleTouchMove($event)"
+     @touchend="handleTouchEnd($event)"
+     @mousedown="handleMouseDown($event)"
+     @mousemove="handleMouseMove($event)"
+     @mouseup="handleMouseUp($event)"
+     @mouseleave="handleMouseLeave($event)"
+     :class="{ 'cursor-grabbing': isDragging }"
+   >
+     <div 
+       class="flex gap-2 sm:gap-3 transition-transform duration-500 ease-in-out select-none"
+       :style="{ transform: getTransform() }"
+       :class="{ 'transition-none': isDragging }"
+     >
+       {items.map((item, index) => (
+         <div 
+           class="relative rounded-lg flex-shrink-0"
+           :style="`background-color: var(--u-gray-100); width: ${this.cardWidth}px; padding: 12px 16px 24px 32px;`"
+           style="@media (min-width: 640px) { padding: 14px 20px 32px 42px; } @media (min-width: 1024px) { padding: 16px 24px 38px 53px; }"
+         >
+           <!-- Large background number -->
+           <div 
+             class="absolute font-book leading-[1.15] select-none pointer-events-none"
+             :style="`color: var(--u-gray-200); left: -6px; top: -20px; font-family: 'Geomanist', sans-serif; letter-spacing: -1.55px; font-size: ${this.cardWidth < 320 ? '100px' : this.cardWidth < 380 ? '120px' : '155px'};`"
+           >
+             {index + 1}
+           </div>
+           
+           <div class="relative z-10">
+             <Heading level={4}>
+               {t(item.title)}
+             </Heading>
+             
+             <Text size="sm">
+               {t(item.description)}
+             </Text>
+           </div>
+         </div>
+       ))}
+     </div>
+   </div>
+ </div>
+</div>

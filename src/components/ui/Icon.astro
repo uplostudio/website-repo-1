@@ -1,0 +1,19 @@
+---
+export interface Props {
+  size?: 'sm' | 'md' | 'lg' | 'xl';
+  class?: string;
+}
+
+const { size = 'md', class: className } = Astro.props;
+
+const sizeClasses = {
+  sm: 'w-8 h-8',
+  md: 'w-12 h-12', 
+  lg: 'w-16 h-16',
+  xl: 'w-20 h-20'
+};
+---
+
+<div class={`inline-flex items-center justify-center rounded-lg p-3 ${sizeClasses[size]} ${className || ''}`} style="background-color: var(--primary)">
+  <slot />
+</div>

@@ -1,0 +1,30 @@
+---
+export interface Props {
+  class?: string;
+  maxWidth?: 'sm' | 'md' | 'lg';
+}
+
+const {
+  class: className = '',
+  maxWidth = 'lg' as const,
+  ...rest
+} = Astro.props as Props;
+
+const maxWidthClasses = {
+  sm: 'max-w-4xl',
+  md: 'max-w-5xl',
+  lg: 'max-w-[1280px]',
+};
+---
+
+<div
+  class:list={[
+    'mx-auto px-4 sm:px-6 lg:px-20',
+    maxWidthClasses[maxWidth],
+    'w-full',
+    className,
+  ]}
+  {...rest}
+>
+  <slot />
+</div>

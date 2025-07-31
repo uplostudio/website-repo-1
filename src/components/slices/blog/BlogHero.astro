@@ -1,0 +1,29 @@
+---
+import Section from '@/ui/Section.astro';
+import Heading from '@/ui/Heading.astro';
+import Text from '@/ui/Text.astro';
+import { t } from '@/utils/i18n.js';
+
+const content = {
+  title: {
+    pl: "Blog Asseco",
+    en: "Asseco Blog"
+  },
+  subtitle: {
+    pl: "Najnowsze trendy w technologii, cyberbezpieczeństwie i cyfrowej transformacji",
+    en: "Latest trends in technology, cybersecurity and digital transformation"
+  }
+};
+---
+
+<Section mode="light">
+  <div class="text-center max-w-4xl mx-auto">
+    <Heading level={1} isMb>
+      {t(content.title)}
+    </Heading>
+    
+    <Text size="lg" class="max-w-3xl mx-auto">
+      {t(content.subtitle)}
+    </Text>
+  </div>
+</Section>

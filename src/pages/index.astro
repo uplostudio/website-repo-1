@@ -1,0 +1,27 @@
+---
+import Layout from '@/layouts/Layout.astro';
+import HomeHero from '@/slices/home/HomeHero.astro';
+import HomeAbout from '@/slices/home/HomeAbout.astro';
+import HomeCloudFeatures from '@/slices/home/HomeCloudFeatures.astro';
+import HomeBaas from '@/slices/home/HomeBaas.astro';
+import HomeCertificates from '@/slices/home/HomeCertificates.astro';
+import HomeManagement from '@/slices/home/HomeManagement.astro';
+import HomeFaq from '@/slices/home/HomeFaq.astro';
+
+import { t } from '@/utils/i18n.js';
+
+const pageTitle = {
+  pl: "Asseco Web System",
+  en: "Asseco Web System"
+};
+---
+
+<Layout title={t(pageTitle)}>
+	<HomeHero />
+	<HomeAbout />
+	<HomeCloudFeatures />
+	<HomeBaas />
+	<HomeCertificates />
+	<HomeManagement />
+	<HomeFaq />
+</Layout>

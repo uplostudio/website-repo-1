@@ -1,0 +1,91 @@
+---
+import LanguageSwitcher from '@/ui/LanguageSwitcher.astro';
+import Navigation from '@/shared/Navigation.astro';
+import Footer from '@/shared/Footer.astro';
+import SearchModal from '@/ui/SearchModal.astro';
+
+
+import ScrollTracker from '@/ui/ScrollTracker.astro';
+import '../styles/global.css';
+import { getCurrentLang, setAstroContext } from '@/utils/i18n.js';
+
+// Set the Astro context for i18n
+setAstroContext(Astro);
+
+export interface Props {
+	title: string;
+	navTheme?: 'white' | 'dark';
+}
+
+const { title, navTheme = 'white' } = Astro.props;
+const currentLang = getCurrentLang();
+---
+
+<!doctype html>
+<html lang={currentLang}>
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="description" content="Astro description" />
+		<meta name="viewport" content="width=device-width" />
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<meta name="generator" content={Astro.generator} />
+		<title>{title}</title>
+
+		
+		<!-- Astro Web Components -->
+		<link rel="preconnect" href="https://fonts.gstatic.com" />
+		<link
+			href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap"
+			rel="stylesheet"
+		/>
+		<link
+			rel="stylesheet"
+			href="https://cdn.jsdelivr.net/npm/@astrouxds/astro-web-components/dist/astro-web-components/astro-web-components.css"
+		/>
+		<script
+			type="module"
+			src="https://cdn.jsdelivr.net/npm/@astrouxds/astro-web-components/dist/astro-web-components/astro-web-components.esm.js"
+		></script>
+	</head>
+	<body>
+		<div 
+			x-data="{ 
+				searchOpen: false,
+				openSearch() {
+					this.searchOpen = true;
+				},
+				init() {
+					this.$el.addEventListener('open-search', () => {
+						this.openSearch();
+					});
+				}
+			}"
+			@keydown.escape.window="searchOpen = false"
+			@keydown.ctrl.k.prevent.window="openSearch()"
+			@keydown.cmd.k.prevent.window="openSearch()"
+		>
+			<Navigation theme={navTheme} />
+			<main>
+				<slot />
+			</main>
+			<Footer />
+			<SearchModal />
+
+
+			<ScrollTracker />
+		</div>
+		
+		<script>
+			import Alpine from 'alpinejs'
+			
+			declare global {
+				interface Window {
+					Alpine: typeof Alpine;
+				}
+			}
+			
+			window.Alpine = Alpine
+			Alpine.start()
+		</script>
+	</body>
+</html>

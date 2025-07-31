@@ -1,0 +1,43 @@
+---
+export interface Props {
+  position?: 'top-left' | 'top-right' | 'bottom-left' | 'bottom-right' | 'center';
+  size?: 'sm' | 'md' | 'lg' | 'xl';
+  opacity?: number;
+  color?: string;
+  className?: string;
+}
+
+const {
+  position = 'top-right',
+  size = 'lg',
+  opacity = 0.5,
+  color = 'var(--u-dark-blue)',
+  className = ''
+} = Astro.props;
+
+// Position mappings
+const positionClasses = {
+  'top-left': 'left-[-406px] top-[-424px]',
+  'top-right': 'right-[-406px] top-[-424px]',
+  'bottom-left': 'left-[-406px] top-[726px]',
+  'bottom-right': 'right-[-406px] top-[726px]',
+  'center': 'left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2'
+};
+
+// Size mappings
+const sizeClasses = {
+  sm: 'h-[300px] w-[400px]',
+  md: 'h-[500px] w-[600px]',
+  lg: 'h-[647px] w-[734px]',
+  xl: 'h-[800px] w-[900px]'
+};
+
+const positionClass = positionClasses[position];
+const sizeClass = sizeClasses[size];
+---
+
+<div class={`absolute ${sizeClass} ${positionClass} ${className}`} style={`opacity: ${opacity};`}>
+  <div class="absolute bottom-[-92.736%] left-[-81.744%] right-[-81.744%] top-[-92.736%]">
+    <div class="w-full h-full rounded-full" style={`background: radial-gradient(circle, ${color} 0%, transparent 70%);`}></div>
+  </div>
+</div>

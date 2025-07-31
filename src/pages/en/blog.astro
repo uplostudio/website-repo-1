@@ -1,0 +1,16 @@
+---
+import Layout from '@/layouts/Layout.astro';
+import BlogHero from '@/slices/blog/BlogHero.astro';
+import BlogGrid from '@/slices/blog/BlogGrid.astro';
+import { t } from '@/utils/i18n.js';
+
+const pageTitle = {
+  pl: "Blog - Asseco Web System",
+  en: "Blog - Asseco Web System"
+};
+---
+
+<Layout title={t(pageTitle)}>
+  <BlogHero />
+  <BlogGrid />
+</Layout>

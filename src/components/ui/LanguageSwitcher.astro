@@ -1,0 +1,32 @@
+---
+import { SUPPORTED_LANGS, getCurrentLang, getOtherLangUrl } from '@/utils/i18n.js';
+
+const currentLang = getCurrentLang();
+---
+
+<div class="language-switcher">
+  {SUPPORTED_LANGS
+    .filter(lang => lang !== currentLang)
+    .map(lang => {
+      const href = getOtherLangUrl(Astro.url.href, lang);
+      
+      return (
+        <a 
+          href={href}
+          class="px-2 py-1 text-sm font-regular transition-opacity hover:opacity-70"
+          style="color: var(--text);"
+        >
+          {lang.toUpperCase()}
+        </a>
+      );
+    })
+  }
+</div>
+
+<style>
+  .language-switcher {
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+  }
+</style>

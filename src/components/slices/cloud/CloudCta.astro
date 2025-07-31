@@ -1,0 +1,50 @@
+---
+import Section from '@/ui/Section.astro';
+import Heading from '@/ui/Heading.astro';
+import Text from '@/ui/Text.astro';
+import Button from '@/ui/Button.astro';
+import Subtitle from '@/ui/Subtitle.astro';
+import { t } from '@/utils/i18n.js';
+import SectionHeader from '@/ui/SectionHeader.astro';
+import Gradient from '@/ui/Gradient.astro';
+import CtaForm from '@/blocks/CtaForm.astro';
+
+const content = {
+  subtitle: {
+    pl: "Formularz kontaktowy",
+    en: "Contact form"
+  },
+  title: {
+    pl: "Kontakt z Asseco Cloud",
+    en: "Contact with Asseco Cloud"
+  },
+  description: {
+    pl: "Skontaktuj się z najlepszymi ekspertami rozwiązań chmurowych",
+    en: "Contact the best cloud solutions experts"
+  }
+};
+---
+
+<Section mode="dark" class="relative overflow-hidden">
+    
+  <Gradient position="bottom-left" size="lg" opacity={0.5} />
+  <Gradient position="top-right" size="lg" opacity={0.5} />
+
+<div class="relative z-10">
+    <SectionHeader isSimple isCenter>
+        <Subtitle isMb>
+         {t(content.subtitle)}
+         </Subtitle>
+         
+         <Heading level={1} isMb>
+          {t(content.title)}
+          </Heading>
+          
+         <Text size="lg">
+          {t(content.description)}
+          </Text>
+    </SectionHeader>
+    
+    <CtaForm />
+  </div>
+</Section>

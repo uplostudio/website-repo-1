@@ -1,0 +1,79 @@
+---
+import Section from '@/ui/Section.astro';
+import Heading from '@/ui/Heading.astro';
+import Text from '@/ui/Text.astro';
+import TwoColGrid from '@/ui/2ColGrid.astro';
+import { t } from '@/utils/i18n.js';
+
+
+
+
+const features = [
+  {
+    title: {
+      pl: "Wirtualna infrastruktura",
+      en: "Virtual infrastructure"
+    },
+    description: {
+      pl: "Technologia chmury publicznej powstała z myślą o firmach, które nie posiadają zaplecza technicznego, takiego jak własne data center, fizyczne serwery czy osprzęt sieciowy. Bez konieczności inwestowania środków w kolokację czy sprzęt, rozwiązania public cloud sprawdzą się idealnie w miejscach, gdzie istotne jest uruchomienie projektu w krótkim czasie, bez możliwości pełnego oszacowania zapotrzebowania na zasoby.",
+      en: "Public cloud technology was created with companies in mind that do not have technical infrastructure such as their own data center, physical servers or network equipment. Without the need to invest in colocation or equipment, public cloud solutions are perfect for places where it is important to launch a project in a short time, without the possibility of fully estimating resource requirements."
+    }
+  },
+  {
+    title: {
+      pl: "Skalowalna na życzenie",
+      en: "Scalable on demand"
+    },
+    description: {
+      pl: "Chmura to swoboda w przydzielaniu zasobów. Poszczególne parametry i zasoby mogą automatycznie dostosowywać się do bieżącego zapotrzebowania. W ten sposób aplikacje narażone na zwiększone zapotrzebowanie na zasoby (np. platformy e-commerce) mogą działać płynnie nawet w przypadku skoków odwiedzalności (np. okresów wyprzedażowe). Analogicznie, niskie obciążenie platformy umożliwia zmniejszenie wykorzystania zasobów, zapewniając oszczędności finansowe.",
+      en: "Cloud means freedom in resource allocation. Individual parameters and resources can automatically adapt to current demand. This way, applications exposed to increased resource demand (e.g. e-commerce platforms) can run smoothly even during traffic spikes (e.g. sale periods). Similarly, low platform load allows for reduced resource usage, providing financial savings."
+    }
+  },
+  {
+    title: {
+      pl: "Płatności tylko za wykorzystane zasoby",
+      en: "Pay only for used resources"
+    },
+    description: {
+      pl: "Firmy doceniają chmurę za oszczędności finansowe. Płatności realizowane są tylko za te zasoby, które są w danym momencie wykorzystywane. Jest to całkowite przeciwieństwo serwerów współdzielonych i dedykowanych, gdzie płatność realizowana jest zawsze za całą, dostępną moc, niezależnie od tego czy zostaje wykorzystana. Dodatkową zaletą są także koszty samych zasobów, które w ujęciu chmurowym są po prostu niższe.",
+      en: "Companies appreciate the cloud for financial savings. Payments are made only for those resources that are currently being used. This is the complete opposite of shared and dedicated servers, where payment is always made for all available power, regardless of whether it is used. An additional advantage is also the cost of the resources themselves, which in cloud terms are simply lower."
+    }
+  }
+];
+
+const images = [img3, img4, img5];
+---
+
+<Section mode="light-gray">
+  <div class="space-y-24">
+    {features.map((feature, index) => (
+      <TwoColGrid isMobileReversed={index % 2 === 1}>
+        <div slot="left">
+          <Heading level={2} isMb>
+            {t(feature.title)}
+          </Heading>
+          
+          <Text size="md">
+            {t(feature.description)}
+          </Text>
+        </div>
+        
+        <div slot="right" class="flex items-center justify-center">
+          <div class="w-full h-80 rounded-lg overflow-hidden">
+            <Image 
+              src={images[index]}
+              alt={t({
+                pl: `Wizualizacja funkcji: ${feature.title.pl}`,
+                en: `Feature visualization: ${feature.title.en}`
+              })}
+              class="w-full h-full object-cover"
+              width="800"
+              height="600"
+              
+            />
+          </div>
+        </div>
+      </TwoColGrid>
+    ))}
+  </div>
+</Section>

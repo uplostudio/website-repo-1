@@ -1,0 +1,14 @@
+---
+export interface Props {
+  class?: string;
+  isMb?: boolean;
+}
+
+const { class: className = "", isMb = false } = Astro.props;
+
+const subtitleClasses = `text-[14px] md:text-[16px] lg:text-[18px] font-[500] leading-[140%] tracking-[0.005em] uppercase ${isMb ? 'mb-[8px] md:mb-[10px] lg:mb-[16px]' : ''} ${className}`;
+---
+
+<div class={subtitleClasses} style="color: var(--text)">
+  <slot />
+</div>

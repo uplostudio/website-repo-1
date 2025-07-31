@@ -1,0 +1,46 @@
+---
+import Section from '@/ui/Section.astro';
+import Heading from '@/ui/Heading.astro';
+import Text from '@/ui/Text.astro';
+import Button from '@/ui/Button.astro';
+import TwoColGrid from '@/ui/2ColGrid.astro';
+import SectionHeader from '@/ui/SectionHeader.astro';
+import WebContainerImage from '@/ui/WebContainerImage.astro';
+---
+
+<Section mode="light-gray" sliceName="HomeAbout">
+    <SectionHeader>
+        <Heading level={2} isMb class="max-w-[800px]">
+            Rozwiązania dla ludzi, technologia dla biznesu
+        </Heading>
+        <Text class="max-w-[600px]">
+            Jesteśmy największą firmą informatyczną w Polsce, i jedną z największych w Europie. Tworzymy cyfrową przyszłość.
+        </Text>
+    </SectionHeader>
+    <TwoColGrid isMobileReversed>
+        <div slot="left">
+            <Heading level={2} isMb class="max-w-[800px]">
+                Rozwiązania dla ludzi, technologia dla biznesu
+            </Heading>
+            <Text class="max-w-[600px]">
+                Jesteśmy największą firmą informatyczną w Polsce, i jedną z największych w Europie. Tworzymy cyfrową przyszłość.
+            </Text>
+            
+            <div class="flex flex-col sm:flex-row gap-4 mt-8">
+              <Button href="#">Poznaj nasze rozwiązania</Button>
+            </div>
+        </div>
+        <div slot="right">
+            <!-- Second column content -->
+            <div class="rounded-lg aspect-square w-full overflow-hidden">
+                <WebContainerImage 
+                    src="img-1.jpg"
+                    alt="Team collaboration and technology solutions"
+                    class="w-full h-full object-cover"
+                    width={800}
+                    height={800}
+                />
+            </div>
+        </div>
+    </TwoColGrid>
+</Section>

@@ -1,0 +1,102 @@
+---
+alwaysApply: true
+---
+<Section mode="light">
+    <Heading level={1} isMb class="max-w-[800px]">
+        {t({
+            pl: "Rozwiązania dla ludzi, technologia dla biznesu",
+            en: "Solutions for people, technology for business"
+        })}
+    </Heading>
+    
+    <Text class="max-w-[600px]">
+        {t({
+            pl: "Jesteśmy największą firmą informatyczną w Polsce, i jedną z największych w Europie. Tworzymy cyfrową przyszłość.",
+            en: "We are the largest IT company in Poland and one of the largest in Europe. We create the digital future."
+        })}
+    </Text>
+    
+    <div class="flex flex-col sm:flex-row gap-4 mt-8">
+      <Button href="#">
+        {t({
+          pl: "Poznaj nasze rozwiązania",
+          en: "Discover our solutions"
+        })}
+      </Button>
+    </div>
+</Section>
+`
+
+### Design System Notes
+
+All components follow consistent patterns:
+- **Geomanist font family** for typography
+- **CSS custom properties** for theming and colors
+- **Responsive-first design** with standard Tailwind breakpoints (sm, md, lg)
+- **Semantic HTML** with proper accessibility features
+- **Alpine.js integration** for interactive components
+- **TypeScript interfaces** for prop validation
+- **Slot-based composition** for flexible content placement
+
+
+### Colors system
+
+The project uses a comprehensive CSS custom properties color system defined in `/src/styles/colors.css`. All components automatically adapt to theme changes via CSS variables.
+
+Use colors with inline style like: style="background-color: var(--bg-100)"
+
+Never use colors like bg-[#000] always use variables
+
+#### Base Color Palette
+
+**Utility Colors:**
+- `--u-white` (#FFFFFF) - Pure white with opacity variants (5%, 10%, 20%, 50%, 70%)
+- `--u-black` (#01080F) - Deep black with opacity variants (5%, 10%, 20%, 50%, 70%)
+- `--u-light-blue` (#D9ECFD) - Light blue accent color
+- `--u-blue` (#1D9BF0) - Primary blue
+- `--u-dark-blue` (#252476) - Dark blue for gradients and accents
+
+**Gray Scale:**
+- `--u-gray-100` (#F9F9F9) - Lightest gray
+- `--u-gray-200` (#F1F1F1) - Light gray
+- `--u-gray-300` (#E2E2E2) - Medium gray
+- `--u-gray-400` (#DEDEDE) - Medium-dark gray
+- `--u-gray-500` (#A9A9A9) - Dark gray
+
+#### Semantic Color Variables
+
+Components use semantic variables that change based on theme:
+- `--bg` - Main background color
+- `--text` - Primary text color
+- `--text-light` - Secondary/muted text
+- `--primary` - Primary brand color
+- `--accent-color` - Accent/highlight color
+- `--link-bg` - Button/link background
+- `--separator` - Border/divider lines
+- `--card-border` - Card and component borders
+
+#### Theme Modes
+
+**Light Mode (default):**
+- Clean white backgrounds with dark text
+- Light gray accents and borders
+
+**Dark Mode (`data-theme="dark"`):**
+- Dark backgrounds with white text
+- Semi-transparent overlays for depth
+
+**Light Gray Mode (`data-theme="light-gray"`):**
+- Light gray background with white cards
+- Subtle contrast for content sections
+
+**Light Blue Mode (`data-theme="light-blue"`):**
+- Light blue background with white elements
+- Soft, approachable aesthetic
+
+#### Best Practices
+
+- Always use semantic variable names in components (e.g., `--text`, `--bg`)
+- Add opacity variants for utility colors when needed
+- Test new colors across all theme modes
+- Maintain accessibility contrast ratios
+- Use existing semantic variables when possible before creating new ones
